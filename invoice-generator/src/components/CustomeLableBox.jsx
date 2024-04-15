@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 
-function CustomizeInputComp({width, height}) {
+function CustomizeInputComp({ width, height, placeholder, textAlign }) {
   const [isFocused, setIsFocused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [value, setValue] = useState("Date");
+  const [value, setValue] = useState(placeholder);
 
 
   const inputStyle = {
     width: width,
     height: height,
     backgroundColor: "#FFFFFF",
-    border: isHovered ?  "1px solid rgba(196, 205, 213, .7)" : "1px solid transparent",
+    border: isHovered ? "1px solid rgba(196, 205, 213, .7)" : "1px solid transparent",
     borderRadius: "8px",
     padding: "10px",
     fontSize: "16px",
@@ -22,7 +22,7 @@ function CustomizeInputComp({width, height}) {
     outline: "none",
     resize: "none",
     transition: "border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out",
-    textAlign: "right",
+    textAlign: textAlign,
   };
 
   const handleFocus = () => {
@@ -33,12 +33,12 @@ function CustomizeInputComp({width, height}) {
     setIsFocused(false);
   };
 
-  const handleChange=(e)=>{
-      setValue(e.target.value);
+  const handleChange = (e) => {
+    setValue(e.target.value);
   }
 
   return (
-    <div onMouseEnter={()=>setIsHovered(true)} onMouseLeave={()=>setIsHovered(false)}>
+    <div onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
       <input
         placeholder={value}
         required

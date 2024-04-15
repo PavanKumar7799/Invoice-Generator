@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function NameComponent({width, height}) {
+function InputBox({width, height, placeholder}) {
   const [isFocused, setIsFocused] = useState(false);
 
   const textareaStyle = {
@@ -32,7 +32,7 @@ function NameComponent({width, height}) {
   return (
     <div>
       <textarea
-        placeholder="Who is this invoice to? (required)"
+      placeholder={placeholder}
         required
         style={textareaStyle}
         onFocus={handleFocus}
@@ -42,4 +42,4 @@ function NameComponent({width, height}) {
   );
 }
 
-export default NameComponent;
+export default InputBox;
