@@ -6,6 +6,7 @@ import PageCount from './pageCount'
 import PDFGenerator from './PDFGenerator'
 import LogoBox from './LogoBox'
 import DateInput from './DatePicker'
+import Currency from './Currency'
 
 
 function MainPage() {
@@ -39,8 +40,11 @@ function MainPage() {
             <h2>Page Count comp</h2>
           <PageCount width='150px' height='auto'/>
           </div>
-          <div style={{width: '20%', height: '100%',display: 'flex', justifyContent: 'center'}}>
+          <div style={{width: '20%', height: '100%', justifyContent: 'center', marginLeft:'30px'}}>
             <PDFGenerator />
+            <div style={{marginTop:"30px"}}>
+            <Currency />
+          </div>
           </div>
       </div>
          
