@@ -1,24 +1,28 @@
 import React, { useState } from "react";
 
-function NameComponent({width, height}) {
+function CustomizeInputComp({width, height}) {
   const [isFocused, setIsFocused] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [value, setValue] = useState("Date");
 
-  const textareaStyle = {
+
+  const inputStyle = {
     width: width,
     height: height,
     backgroundColor: "#FFFFFF",
-    border: "1px solid rgba(196, 205, 213, .7)",
+    border: isHovered ?  "1px solid rgba(196, 205, 213, .7)" : "1px solid transparent",
     borderRadius: "8px",
     padding: "10px",
     fontSize: "16px",
     fontFamily: "Inter, sans-serif",
-    color: "#1E2022",
+    color: "#777",
     boxShadow: isFocused
       ? "rgba(140, 152, 164, 0.25) 0px 0px 16px 0px"
       : "none",
     outline: "none",
     resize: "none",
     transition: "border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out",
+    textAlign: "right",
   };
 
   const handleFocus = () => {
@@ -29,12 +33,18 @@ function NameComponent({width, height}) {
     setIsFocused(false);
   };
 
+  const handleChange=(e)=>{
+      setValue(e.target.value);
+  }
+
   return (
-    <div>
-      <textarea
-        placeholder="Who is this invoice to? (required)"
+    <div onMouseEnter={()=>setIsHovered(true)} onMouseLeave={()=>setIsHovered(false)}>
+      <input
+        placeholder={value}
         required
-        style={textareaStyle}
+        value={value}
+        style={inputStyle}
+        onChange={handleChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
       />
@@ -42,4 +52,4 @@ function NameComponent({width, height}) {
   );
 }
 
-export default NameComponent;
+export default CustomizeInputComp;
