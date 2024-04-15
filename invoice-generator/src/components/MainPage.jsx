@@ -3,6 +3,7 @@ import NameComponent from './nameComponent'
 import CustomizeInputComp from './customizeInput'
 import InvoiceName from './invoicename'
 import PageCount from './pageCount'
+import PDFGenerator from './PDFGenerator'
 
 function MainPage() {
   return (
@@ -19,7 +20,7 @@ function MainPage() {
           <PageCount width='150px' height='auto'/>
           </div>
           <div style={{width: '20%', height: '100%',display: 'flex', justifyContent: 'center'}}>
-            <h2>Download</h2>
+            <PDFGenerator />
           </div>
       </div>
          
