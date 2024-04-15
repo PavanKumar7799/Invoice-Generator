@@ -1,7 +1,6 @@
 import React from 'react';
 import jsPDF from 'jspdf';
 
-
 const imageUrl = 'https://i.imgur.com/abcd123.jpg';
 
 const PDFGenerator = () => {
@@ -9,9 +8,7 @@ const PDFGenerator = () => {
 
     const doc = new jsPDF();
 
-
     doc.addImage(imageUrl, 'JPEG', 10, 10, 50, 50);
-
 
     doc.setFontSize(12);
     doc.text("Hello", 10, 70);

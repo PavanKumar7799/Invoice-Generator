@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react';
 import InputBox from './InputBox'; // Import your custom InputBox component
 import CustomizeInputComp from './CustomeLableBox';
+import LableBox from './LabelBox';
 
 // Action types
 const UPDATE_ITEM_NAME = 'UPDATE_ITEM_NAME';
@@ -45,23 +46,23 @@ function LineItem() {
     return (
         <div>
             {/* Header row */}
-            <div style={{ backgroundColor: '#132144', color: '#f9fafc', display: 'flex', justifyContent: 'space-between', padding: '8px', textAlign:'left' }}>
-                <CustomizeInputComp textAlign={'left'} placeholder={'Item'} width="150px" height="40px"  />
-                <CustomizeInputComp textAlign={'left'} placeholder={'Quantity'} width="80px" height="40px" />
-                <CustomizeInputComp textAlign={'left'} placeholder={'Rate'} width="80px" height="40px" />
-                <CustomizeInputComp textAlign={'left'} placeholder={'Amount'} width="100px" height="40px" />
+            <div style={{ backgroundColor: '#132144', color: 'white', display: 'flex', padding: '8px', height: '20px' , borderRadius:'5px'}}>
+                <LableBox placeholder={'Item'} width="800px" height="6px" />
+                <LableBox placeholder={'Quantity'} width="100px" height="6px" />
+                <LableBox placeholder={'Rate'} width="100px" height="6px" />
+                <LableBox placeholder={'Amount'} width="100px" height="6px" />
             </div>
 
             {/* Input row */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px' }}>
-                <InputBox placeholder={'Add your Item or decription of product'} width="900px" height="40px" value={state.itemName} onChange={(value) => dispatch({ type: UPDATE_ITEM_NAME, payload: value })} />
-                <InputBox placeholder={'Quantity'} width="80px" height="40px" value={state.quantity} onChange={(value) => dispatch({ type: UPDATE_QUANTITY, payload: value })} />
-                <InputBox placeholder={'Rate'} width="80px" height="40px" value={state.rate} onChange={(value) => dispatch({ type: UPDATE_RATE, payload: value })} />
-                <InputBox placeholder={'Amt'} width="100px" height="40px" value={state.amount} onChange={(value) => dispatch({ type: UPDATE_AMOUNT, payload: value })} />
+            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '5px', height:'40px' }}>
+                <InputBox placeholder={'Add your Item or decription of product'} width="800px" height="30px" value={state.itemName} onChange={(value) => dispatch({ type: UPDATE_ITEM_NAME, payload: value })} />
+                <InputBox placeholder={'Quantity'} width="80px" height="30px" value={state.quantity} onChange={(value) => dispatch({ type: UPDATE_QUANTITY, payload: value })} />
+                <InputBox placeholder={'Rate'} width="80px" height="30px" value={state.rate} onChange={(value) => dispatch({ type: UPDATE_RATE, payload: value })} />
+                <InputBox width="100px" height="30px" value={'$'+state.amount} onChange={(value) => dispatch({ type: UPDATE_AMOUNT, payload: value })} />
                 {/* <button onClick={handleAddLineItem}>+</button> */}
             </div>
-            <div style={{ backgroundColor: '#EAF7E7', padding: '8px' }}>
-                <button style={{ backgroundColor: '#C4E4C0', padding: '8px', border: 'none' }} onClick={handleAddLineItem}>Add Items</button>
+            <div style={{  padding: '10px', marginTop:'15px' }}>
+                <button style={{ backgroundColor: '#C4E4C0', padding: '8px', border: 'none' }} onClick={handleAddLineItem}> + Add Items</button>
             </div>
         </div>
     );
