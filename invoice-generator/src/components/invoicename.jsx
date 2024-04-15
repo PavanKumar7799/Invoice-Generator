@@ -10,7 +10,7 @@ function InvoiceName({width, height}) {
     width: width,
     height: height,
     backgroundColor: "#FFFFFF",
-    border: isHovered ?  "1px solid rgba(196, 205, 213, .7)" : "1px solid transparent",
+    border: (isFocused || isHovered )?  "1px solid rgba(196, 205, 213, .7)" : "1px solid transparent",
     borderRadius: "8px",
     fontSize: "40px",
     boxShadow: isFocused
@@ -29,6 +29,7 @@ function InvoiceName({width, height}) {
 
   const handleBlur = () => {
     setIsFocused(false);
+    
   };
 
   const handleChange=(e)=>{

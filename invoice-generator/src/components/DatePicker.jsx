@@ -12,7 +12,7 @@ function DateInput({ height, width }) {
         height: height, 
         backgroundColor: '#ffffff',
         border: `1px solid ${isFocused ? '#8C98A4' : '#ccc'}`, 
-        borderRadius: '8px',
+        borderRadius: '5px',
         padding: '10px', 
         fontSize: '16px', 
         fontFamily: 'Inter, sans-serif', 

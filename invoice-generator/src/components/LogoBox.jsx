@@ -17,7 +17,7 @@ function LogoBox({ onImageChange }) { // its need work for background color of t
   };
 
   return (
-    <label className='LogoBox' style={{ padding: '0.12px 0.12px', height: '130px', width: '199.9px', border: '1px solid #ccc', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <label className='LogoBox' style={{ padding: '0.12px 0.12px', height: '130px', width: '199.9px', border: '1px solid #ccc', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px' }}>
       <input type="file" accept="image/*" onChange={handleChange} style={{ display: 'none' }} />
       {imageUrl && <img src={imageUrl} alt="Selected Image" style={{ maxWidth: '100%', maxHeight: '100%' }} />} 
       {!imageUrl && <span style={{ color: 'rgb(103, 119, 136)' }}>+ Add Your Logo</span>}

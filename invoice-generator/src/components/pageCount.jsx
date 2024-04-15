@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import {Icon} from 'semantic-ui-react'
+// import {Icon} from 'semantic-ui-react'
 
 function PageCount({width, height}) {
   const [isFocused, setIsFocused] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
   const [value, setValue] = useState("1");
 
 
@@ -11,8 +10,8 @@ function PageCount({width, height}) {
     width: width,
     height: height,
     backgroundColor: "#FFFFFF",
-    border: isHovered ?  "1px solid rgba(196, 205, 213, .7)" : "1px solid transparent",
-    borderRadius: "8px",
+    border: "1px solid rgba(196, 205, 213, .7)",
+    borderRadius: "5px",
     padding: "10px",
     fontSize: "16px",
     fontFamily: "Inter, sans-serif",
@@ -24,6 +23,7 @@ function PageCount({width, height}) {
     resize: "none",
     transition: "border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out",
     textAlign: "right",
+    boxSizing: "border-box"
   };
 
   const handleFocus = () => {
@@ -39,10 +39,9 @@ function PageCount({width, height}) {
   }
 
   return (
-    <div onMouseEnter={()=>setIsHovered(true)} onMouseLeave={()=>setIsHovered(false)}>
+    <div >
       <input
-      
-        placeholder={ <Icon disabled name='hashtag' size='big' /> +value}
+        placeholder={value}
         required
         value={value}
         style={inputStyle}
@@ -50,6 +49,7 @@ function PageCount({width, height}) {
         onFocus={handleFocus}
         onBlur={handleBlur}
       />
+          
     </div>
   );
 }
