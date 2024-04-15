@@ -3,11 +3,11 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 
-function Boxes({ height, width }) {
+function DateInput({ height, width }) {
     const [selectedDate, setSelectedDate] = useState(null);
     const [isFocused, setIsFocused] = useState(false);
 
-    const datePickerStyle = {
+    const datePickerStyle = { 
         width: width,
         height: height, 
         backgroundColor: '#ffffff',
@@ -53,4 +53,4 @@ function Boxes({ height, width }) {
     );
 }
 
-export default Boxes;
+export default DateInput;
