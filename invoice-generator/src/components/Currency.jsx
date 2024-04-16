@@ -3,11 +3,11 @@ import React from 'react';
 const Currency = () => {
     return (
         <div>
-            <div>Currency</div>
+            <div style={{marginLeft:"10px"}}>Currency</div>
             <select className="form-select form-select-sm ng-valid ng-touched ng-dirty ng-valid-parse" 
                 ng-model="document.currency" 
                 ng-options="currency.code as currency.name for (code, currency) in currencies"
-                style={{ width: "150px", height:"30px", margin:"10px" }}>
+                style={{ width: "160px", height:"37px", margin:"10px", border:"1px solid gray", borderRadius:"5px" }}>
                 <option value="AED" label="AED (د.إ)">AED (د.إ)</option>
                 <option value="AFN" label="AFN">AFN</option>
                 <option value="ALL" label="ALL (Lek)">ALL (Lek)</option>

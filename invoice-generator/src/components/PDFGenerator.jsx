@@ -1,5 +1,6 @@
 import React from 'react';
 import jsPDF from 'jspdf';
+import { FaDownload } from 'react-icons/fa';
 
 const imageUrl = 'https://i.imgur.com/abcd123.jpg';
 
@@ -149,7 +150,8 @@ const PDFGenerator = () => {
 
   return (
     <div>
-      <button onClick={generatePDF} style={{ padding: '10px 20px', backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>Download PDF</button>
+      <button onClick={generatePDF} style={{ padding: '10px 20px', backgroundColor: '#00c9a7', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
+      <FaDownload style={{ marginRight: '5px' }} />Download Invoice</button>
     </div>
   );
 }
