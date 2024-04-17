@@ -11,3 +11,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.btn-style:hover{
+  background-color: #71869d !important;
+  border-radius: 0px 5px 5px 0px !important;
+}
+.btn-style:hover{
+  color: white !important;
+}
+.cross-style .fab-cross-icon{
+  /* visibility: hidden; */
+}
+.cross-style:hover .fab-cross-icon{
+  visibility: visible !important;
+}
