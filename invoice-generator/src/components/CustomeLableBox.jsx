@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function CustomizeInputComp({ width, height, placeholder, textAlign }) {
+function CustomizeInputComp({ width, height, placeholder, textAlign, onChange }) {
   const [isFocused, setIsFocused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [value, setValue] = useState(placeholder);
@@ -35,6 +35,9 @@ function CustomizeInputComp({ width, height, placeholder, textAlign }) {
 
   const handleChange = (e) => {
     setValue(e.target.value);
+    if(onChange){
+      onChange(e)
+    }
   }
 
   return (

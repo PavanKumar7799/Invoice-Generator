@@ -1,14 +1,8 @@
 import React, { useState } from "react";
 // import { useSelector } from "react-redux";
 
-function InputBox2({width, height, textAlign, type , onChange, value}) {
+function PageCount({width, height, textAlign, onChange, value, name }) {
   const [isFocused, setIsFocused] = useState(false);
-  
-  // const initialValueFromRedux = useSelector(state => state.rootreducer.rate);
-
-  // console.log(initialValueFromRedux);
-
-  // const [value, setValue] = useState("1");
   const inputStyle = {
     width: width,
     height: height,
@@ -44,14 +38,14 @@ function InputBox2({width, height, textAlign, type , onChange, value}) {
     <input
       placeholder={value}
       required
+      name={name}
       value={value}
       style={inputStyle}
       onChange={onChange}
       onFocus={handleFocus}
       onBlur={handleBlur}
-      type={type}
     />
   </div>
   );
 }
-export default InputBox2;
+export default PageCount;

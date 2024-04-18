@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 
-function DateInput({ height, width }) {
-    const [selectedDate, setSelectedDate] = useState(null);
+function DateInput({ height, width, onChange, value}) {
+    // const [selectedDate, setSelectedDate] = useState(null);
     const [isFocused, setIsFocused] = useState(false);
 
     const datePickerStyle = { 
@@ -34,15 +34,15 @@ function DateInput({ height, width }) {
         setIsFocused(false);
     };
 
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-    };
+    // const handleDateChange = (date) => {
+    //     setSelectedDate(date);
+    // };
 
     return (
         <div>
             <DatePicker
-                selected={selectedDate}
-                onChange={handleDateChange}
+                onChange={onChange}
+                selected={value}
                 type ='Date'
                 dateFormat="MMM d, yyyy" 
                 onFocus={handleFocus}

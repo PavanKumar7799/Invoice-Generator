@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import Calculation from "./caclulation"; // Assuming Calculation is the reducer for the calculation slice
+import Calculation from "./caclulation"; 
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 

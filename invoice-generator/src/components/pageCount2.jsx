@@ -7,26 +7,31 @@ import { faHashtag } from '@fortawesome/free-solid-svg-icons';
 function PageCount2({width, height, textAlign, Symbol, onChange, value }) {
   const [isFocused, setIsFocused] = useState(false);
 
-  
-  const inputStyle = {
+  const containerStyle = {
+    position: 'relative',
+    paddingLeft: '20px',
     width: width,
     height: height, 
-    backgroundColor: '#ffffff',
-    border: "1px solid rgba(196, 205, 213, .7)",
     borderRadius: '5px',
-    padding: '10px', 
-    fontSize: '16px', 
-    fontFamily: 'Inter, sans-serif', 
-    color: 'rgb(119, 119, 119)', 
-    boxShadow: isFocused ? 'rgba(140, 152, 164, 0.25) 0px 0px 16px 0px' : 'none',
+    border: "1px solid rgba(196, 205, 213, .7)",
+  }
+  
+  const inputStyle = {
+    
+    position: 'absolute',
+    // width: '49px',
+    width: '78%',
+    backgroundColor: "#FFFFFF",
+    border:'none',
+    color: "#1E2022",
+    boxShadow: isFocused
+      ? "rgba(140, 152, 164, 0.25) 0px 0px 16px 0px"
+      : "none",
+    outline: "none",
+    height: '95%',
+    left:'31px',
     textAlign: textAlign,
-    outline : 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    resize:'none',
-    marginBottom: '4px',
-    position: 'absoulte'
+    borderRadius: '0px 5px 5px 0px'
   };
 
   const handleFocus = () => {
@@ -37,8 +42,8 @@ function PageCount2({width, height, textAlign, Symbol, onChange, value }) {
     setIsFocused(false);
   };
   return (
-    <div style={{position:'relative'}}>
-    <div style={{position:'absolute', height: '100%', width: '20%', display: 'flex', justifyContent: 'center', paddingTop: '10px', color: '#8f949d', fontSize: '17px', fontWeight: '500', paddingRight:'10px'}}>{Symbol}</div>
+    <div style={containerStyle}>
+    <div style={{ position: 'absolute', left: '0', height: '100%', display: 'flex', alignItems: 'center',color: 'rgb(119, 119, 119)', backgroundColor: 'white', width: '20%', justifyContent: 'center', borderRadius: '5px' }}>{Symbol}</div>
     <input
       placeholder={value}
       required

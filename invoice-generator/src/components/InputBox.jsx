@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function InputBox({width, height, placeholder, onChange, value}) {
+function InputBox({width, height, placeholder, onChange, value, name}) {
   const [isFocused, setIsFocused] = useState(false);
 
   const textareaStyle = {
@@ -36,8 +36,9 @@ function InputBox({width, height, placeholder, onChange, value}) {
         required
         style={textareaStyle}
         onFocus={handleFocus}
-        onChange={onChange}
+        name={name}
         value={value}
+        onChange={onChange}
         onBlur={handleBlur}
       />
     </div>

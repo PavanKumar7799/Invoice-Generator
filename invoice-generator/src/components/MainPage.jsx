@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputBox from "./InputBox";
 import CustomeLableBox from "./CustomeLableBox";
 import InvoiceName from "./invoicename";
@@ -14,13 +14,55 @@ import { Icon } from "semantic-ui-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faPlus } from "@fortawesome/free-solid-svg-icons";
 import DiscountBox from "./discountBox"
+import { updateCalculations } from '../Redux/caclulation'; 
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+
 
 function MainPage() {
   const handleImageChange = (imageData) => {
     console.log("Image data:", imageData);
   };
 
-  // const [totalAmount, setTotalAmount] = useState();
+  const dispatch = useDispatch();
+
+  const { discount: reduxDiscount, tax: reduxTax, shipping: reduxShipping, total: reduxTotal, amountPaid: reduxAmount, balanceDue: reduxBalance } = useSelector(state => state.calculation);
+
+
+  const totalAmountToDisplay = isNaN(reduxTotal) ? `$0.0` : `$${reduxTotal}`;
+  const balanceToDisplay = isNaN(reduxBalance) ? `$0.0` : `$${reduxBalance}`;
+
+  const [isPercentVisible, setIsPercentVisible] = useState({
+    Discount: false,
+    Tax: false,
+  });
+
+  const handlePercentVisibilityToggle = (field) => {
+    setIsPercentVisible((prevState) => ({
+      ...prevState,
+      [field]: !prevState[field]
+    }));
+  };
+
+
+  const [customeLabel, setCustomeLabel] = useState("");
+  const [selectedDate, setSelectedDate] = useState({
+    date: '',
+    dueDate: ''
+  });
+
+  const [planeInput, setPlaneInput] = useState({
+    paymentTerms: '',
+    poNumber: ''
+  })
+
+  const [inputBoxValue, setInputBoxValue] = useState({
+    inVoiceFrom: '',
+    shipTo: '',
+    billTo: '',
+    notes: '',
+    terms: ''
+  })
 
   const calculateFinalTotal = () => {
     const { total, fieldsData } = formData;
@@ -54,6 +96,7 @@ function MainPage() {
   });
 
   const handleChange = (event, fieldName) => {
+    
     const { value } = event.target;
     if (fieldName === "total") {
       setFormData({
@@ -93,6 +136,50 @@ function MainPage() {
     const finalTotal = calculateFinalTotal();
     console.log("Final Total:", finalTotal);  
   };
+
+
+  const handleInputBoxChange=(event)=>{
+    const {name, value} = event.target;
+    setInputBoxValue(prevState=>({
+      ...prevState,
+      [name]:value
+    }));
+  }
+
+  const handleCustomeLableChange=(event)=>{
+    setCustomeLabel(event.target.value)
+  }
+
+  const handleDatePickerChange=(date, whichDate)=>{
+    setSelectedDate(prevState=>({
+      ...prevState,
+      [whichDate]:date
+    }))
+  }
+
+  const handlePlaneInputChange=(event)=>{
+    const {name, value} = event.target
+    setPlaneInput((prevState)=>({
+      ...prevState,
+      [name]:value
+    }))
+
+  }
+
+  useEffect(() => {
+    // console.log(customeLabel);
+    // console.log(isPercentVisible.Discount);
+    // console.log(formData.fieldsData.Discount+'%');
+  }); 
+
+
+  const discount = (isPercentVisible.Discount)?  formData.fieldsData.Discount+'%' : formData.fieldsData.Discount; 
+  console.log(discount)
+  const tax = (isPercentVisible.Tax)? formData.fieldsData.Tax+'%' :  formData.fieldsData.Tax
+  const shipping = formData.fieldsData.Shipping; 
+  const amountPaid = formData.fieldsData.AmountPaid; 
+  dispatch(updateCalculations({ discount, tax, shipping,  amountPaid }));
+
   return (
     <div
       className="main-container"
@@ -128,7 +215,7 @@ function MainPage() {
                 }}
               >
                 <InvoiceName width="250px" height="auto" />
-                <PageCount2 width="150px" height="auto" textAlign='right' Symbol={'#'} />
+                <PageCount2 width="150px" height="38px" textAlign='right' Symbol={'#'} />
               </div>
             </div>
             <div
@@ -150,6 +237,9 @@ function MainPage() {
                   width="400px"
                   height="50px"
                   placeholder="Who is this invoice from? (required)"
+                  name="inVoiceFrom"
+                  onChange={handleInputBoxChange}
+                  value={inputBoxValue.inVoiceFrom}
                 />
 
                 <div
@@ -179,6 +269,9 @@ function MainPage() {
                       width="100%"
                       height="40px"
                       placeholder="Who is this invoice to? (required)"
+                      name="shipTo"
+                      onChange={handleInputBoxChange}
+                      value={inputBoxValue.shipTo}
                     />
                   </div>
 
@@ -201,6 +294,9 @@ function MainPage() {
                       width="100%"
                       height="40px"
                       placeholder="(optional)"
+                      name="billTo"
+                      onChange={handleInputBoxChange}
+                      value={inputBoxValue.billTo}
                     />
                   </div>
                 </div>
@@ -226,6 +322,8 @@ function MainPage() {
                     height="18px"
                     placeholder="Date"
                     textAlign="right"
+                     // onChange={handleCustomeLableChange}
+                     value={customeLabel}
                   />
                   <CustomeLableBox
                     width="200px"
@@ -253,10 +351,10 @@ function MainPage() {
                     gap: "0px",
                   }}
                 >
-                  <DatePicker width="125px" height="18px" />
-                  <PageCount width="125px" height="18px" />
-                  <DatePicker width="125px" height="18px" />
-                  <PageCount width="125px" height="18px" />
+                    <DatePicker width="125px" height="18px" onChange={(date)=>handleDatePickerChange(date, 'date')} value={selectedDate.date} />
+                  <PageCount width="125px" height="18px" textAlign='right' onChange={handlePlaneInputChange} value={planeInput.paymentTerms} name="paymentTerms" />
+                  <DatePicker width="125px" height="18px"onChange={(date)=>handleDatePickerChange(date, 'dueDate')} value={selectedDate.dueDate} />
+                  <PageCount width="125px" height="18px" textAlign='right'  onChange={handlePlaneInputChange} value={planeInput.poNumber} name="poNumber" />
                 </div>
               </div>
             </div>
@@ -298,6 +396,9 @@ function MainPage() {
                   width="100%"
                   height="40px"
                   placeholder="Notes - any relevant information not already covered"
+                  name="notes"
+                  onChange={handleInputBoxChange}
+                  value={inputBoxValue.notes}
                 />
               </div>
 
@@ -319,6 +420,9 @@ function MainPage() {
                   width="100%"
                   height="40px"
                   placeholder="Terms and conditions - late fees, payment methods, delivery schedule"
+                  name="terms"
+                  onChange={handleInputBoxChange}
+                  value={inputBoxValue.terms}
                 />
               </div>
             </div>
@@ -388,14 +492,27 @@ function MainPage() {
                         textAlign="right"
                       />
                     )}
+                    {field === "Shipping"? (
+                      <div  style={{marginLeft: '30px', width: '35%'}}>
+                      <PageCount2 width="153px" height="37px" textAlign='left' Symbol={'$'} 
+                        type="number"
+                        name={field.toLowerCase()}
+                      value={formData.fieldsData[field]}
+                      onChange={(event) => handleChange(event, field)}
+                      />
+                      </div>
+                    ):(
                     <div  style={{marginLeft: '30px', width: '35%'}}>
                     <DiscountBox 
                       type="text"
                       name={field.toLowerCase()}
                       value={formData.fieldsData[field]}
                       onChange={(event) => handleChange(event, field)}
+                      setPercentVisible={() => handlePercentVisibilityToggle(field)}
+                      isPercentVisible={isPercentVisible[field]} 
                     />
                     </div>
+                    )}
                     {/* <input
                       type="text"
                       name={field.toLowerCase()}
@@ -454,23 +571,25 @@ function MainPage() {
                         placeholder="Total"
                         textAlign="right"
                       />
-                 <sapn style={{marginLeft: '80px', color: 'rgb(119, 119, 119)'}}>${calTotalAmount()}</sapn>
+                 <sapn style={{marginLeft: '80px', color: 'rgb(119, 119, 119)'}}>{totalAmountToDisplay}</sapn>
                 </div>
                
-                 <div style={{display:'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                <div style={{display:'flex', flexDirection: 'row', justifyContent: '', alignItems: 'center'}}>
                  <CustomeLableBox
                         width="100%"
                         height="18px"
                         placeholder="Amount paid"
                         textAlign="right"
                       />
-                      <div>
-                      <PageCount2 width="150px" height="auto" textAlign='right' Symbol={'$'} 
+                      <div style={{marginLeft:  '30px'}}>
+                      
+                      <PageCount2 width="143px" height="40px" textAlign='left' Symbol={'$'} 
                         type="number"
                       name="AmountPaid"
                       value={formData.fieldsData.AmountPaid}
                       onChange={(event) => handleChange(event, "AmountPaid")}
                       />
+                      
                       </div>
                  </div>
                  <div style={{display:'flex', flexDirection: 'row',  justifyContent: 'space-between', alignItems: 'center'}}>
@@ -480,7 +599,8 @@ function MainPage() {
                         placeholder="Balance Due"
                         textAlign="right"
                       />
-                 <sapn style={{marginLeft: '80px', color: 'rgb(119, 119, 119)'}}>${calculateFinalTotal()}</sapn>
+                 <sapn style={{marginLeft: '80px', color: 'rgb(119, 119, 119)'}}>{balanceToDisplay}</sapn>
+                 {/* <sapn style={{marginLeft: '80px', color: 'rgb(119, 119, 119)'}}>${calculateFinalTotal()}</sapn> */}
                  </div>
                  
                  </div>
