@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { Icon } from 'semantic-ui-react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+// import { useSelector } from "react-redux";
 
-function InputBox2({width, height, textAlign, type }) {
+function InputBox2({width, height, textAlign, type , onChange, value}) {
   const [isFocused, setIsFocused] = useState(false);
-  const [value, setValue] = useState("1");
+  
+  // const initialValueFromRedux = useSelector(state => state.rootreducer.rate);
+
+  // console.log(initialValueFromRedux);
+
+  // const [value, setValue] = useState("1");
   const inputStyle = {
     width: width,
     height: height,
@@ -33,9 +36,9 @@ function InputBox2({width, height, textAlign, type }) {
   const handleBlur = () => {
     setIsFocused(false);
   };
-  const handleChange=(e)=>{
-      setValue(e.target.value);
-  }
+  // const handleChange=(e)=>{
+  //     setValue(e.target.value);
+  // }
   return (
     <div >
     <input
@@ -43,7 +46,7 @@ function InputBox2({width, height, textAlign, type }) {
       required
       value={value}
       style={inputStyle}
-      onChange={handleChange}
+      onChange={onChange}
       onFocus={handleFocus}
       onBlur={handleBlur}
       type={type}

@@ -43,7 +43,7 @@ function DateInput({ height, width }) {
             <DatePicker
                 selected={selectedDate}
                 onChange={handleDateChange}
-                
+                type ='Date'
                 dateFormat="MMM d, yyyy" 
                 onFocus={handleFocus}
                 onBlur={handleBlur}
