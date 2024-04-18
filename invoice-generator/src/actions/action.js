@@ -20,8 +20,15 @@ export const addLineItem = ()=>{
         type:'ADD_LINE_ITEM',
          
 }};
-export const removeLineItem = ( index)=>{
+export const removeLineItem = (payload)=>{
     return {
         type:'REMOVE_LINE_ITEM',
-        payload :{index}
+        payload
 }};
+export const updateSubtotal = (subtotal) => {
+    return {
+        type: 'UPDATE_SUBTOTAL',
+        payload: subtotal
+    };
+};
+
