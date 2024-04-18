@@ -4,6 +4,7 @@ import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
 
 function DiscountBox({ width, height ,value, onChange}) {
   const [isFocused, setIsFocused] = useState(false);
+  const [isPersentVisible, setPersentVisible] = useState(false);
 
   const containerStyle = {
     position: 'relative',
@@ -27,9 +28,9 @@ function DiscountBox({ width, height ,value, onChange}) {
     outline: "none",
     resize: "none",
     transition: "border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out",
-    height: '93%', // Fill parent height
+    height: '93%', 
     borderRight:"1px solid rgba(196, 205, 213, .7)",
-    left:'31px'
+    left:`${isPersentVisible?'2px':'31px'}`
   };
 
 
@@ -43,8 +44,7 @@ function DiscountBox({ width, height ,value, onChange}) {
 
   return (
     <div style={containerStyle}>
-      <div style={{ position: 'absolute', left: '0', height: '100%', display: 'flex', alignItems: 'center',color: 'rgb(119, 119, 119)', backgroundColor: 'white', width: '20%', justifyContent: 'center', borderRadius: '5px' }}>$</div>
-      <input
+ <div style={{ position: 'absolute', left:`${!isPersentVisible ? '0px':'87px'}`, height: '100%', display: 'flex', alignItems: 'center',color: 'rgb(119, 119, 119)', backgroundColor: 'white', width: '20%', justifyContent: 'center', borderRadius: '5px' }}>{!isPersentVisible?"$":<span style={{zIndex:10}}>%</span>}</div>      <input
         placeholder={value}
         required
         value={value}
@@ -53,8 +53,8 @@ function DiscountBox({ width, height ,value, onChange}) {
         onFocus={handleFocus}
         onBlur={handleBlur}
       />
-      <button className="btn-style" style={{ position: 'absolute', right: '0' , width: '28%', height:"100%",  border: 'none', backgroundColor: 'white', borderRadius: '5px', color: 'rgb(119, 119, 119)'}}
-      
+        <button  className="btn-style" style={{ position: 'absolute', right: '0' , width: '28%', height:"100%",  border: 'none', backgroundColor: 'white', borderRadius: '5px', color: 'rgb(119, 119, 119)'}}
+      onClick={()=>setPersentVisible(!isPersentVisible) }
       >
         <FontAwesomeIcon className="icon-style" icon={faArrowsRotate} style={{ marginRight: '5px' }} />
       </button>
