@@ -17,6 +17,7 @@ import DiscountBox from "./discountBox"
 import { updateCalculations } from '../Redux/caclulation'; 
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { selectSubtotal } from '../actions/lineItems';
 
 
 function MainPage() {
@@ -24,15 +25,19 @@ function MainPage() {
     console.log("Image data:", imageData);
   };
 
+  const subtotal = useSelector(selectSubtotal);
+
+  
+  const {selectedCurrency} = useSelector((state) => state.currency);
+  const {Symbol} = useSelector((state) => state.currency);
   const dispatch = useDispatch();
 
-  const { discount: reduxDiscount, tax: reduxTax, shipping: reduxShipping, total: reduxTotal, amountPaid: reduxAmount, balanceDue: reduxBalance } = useSelector(state => state.calculation);
-  const totalAmountToDisplay = isNaN(reduxTotal) ? `$0.0` : `$${reduxTotal}`;
-  const balanceToDisplay = isNaN(reduxBalance) ? `$0.0` : `$${reduxBalance}`;
+  const {  total: reduxTotal, balanceDue: reduxBalance } = useSelector(state => state.calculation);
+  const totalAmountToDisplay = isNaN(reduxTotal) ? `$0.0` : `${selectedCurrency} ${reduxTotal}`;
+  const balanceToDisplay = isNaN(reduxBalance) ? `$0.0` : `${selectedCurrency} ${reduxBalance}`;
 
-  const [fieldOrder, setFieldOrder] = useState([]); // State to maintain the order of fields
+  const [fieldOrder, setFieldOrder] = useState([]); 
 
-  // Function to add a field to the top of the list
   const addFieldToTop = (field) => {
     setFieldOrder([field, ...fieldOrder]);
   };
@@ -69,24 +74,6 @@ function MainPage() {
     terms: ''
   })
 
-  const calculateFinalTotal = () => {
-    const { total, fieldsData } = formData;
-    const totalValue = parseFloat(total) || 0;
-    const discountValue = parseFloat(fieldsData.Discount) || 0;
-    const taxValue = parseFloat(fieldsData.Tax) || 0;
-    const shippingValue = parseFloat(fieldsData.Shipping) || 0;
-    const AmountValue = parseFloat(fieldsData.AmountPaid) || 0;
-    return totalValue - discountValue -AmountValue + taxValue + shippingValue;
-  };
-  const calTotalAmount = () => {
-    const { total, fieldsData } = formData;
-    const totalValue = parseFloat(total) || 0;
-    const discountValue = parseFloat(fieldsData.Discount) || 0;
-    const taxValue = parseFloat(fieldsData.Tax) || 0;
-    const shippingValue = parseFloat(fieldsData.Shipping) || 0;
-    const AmountValue = parseFloat(fieldsData.AmountPaid) || 0;
-    return totalValue - discountValue + taxValue + shippingValue;
-  };
 
   const [formData, setFormData] = useState({
     total: "",
@@ -138,7 +125,6 @@ function MainPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const finalTotal = calculateFinalTotal();
     console.log("Final Total:", finalTotal);  
   };
 
@@ -179,11 +165,10 @@ function MainPage() {
 
 
   const discount = (isPercentVisible.Discount)?  formData.fieldsData.Discount+'%' : formData.fieldsData.Discount; 
-  console.log(discount)
   const tax = (isPercentVisible.Tax)? formData.fieldsData.Tax+'%' :  formData.fieldsData.Tax
   const shipping = formData.fieldsData.Shipping; 
   const amountPaid = formData.fieldsData.AmountPaid; 
-  dispatch(updateCalculations({ discount, tax, shipping,  amountPaid }));
+  dispatch(updateCalculations({ discount, tax, shipping,  amountPaid, subtotal }));
 
   return (
     <div
@@ -448,20 +433,7 @@ function MainPage() {
                   placeholder="Subtotal"
                   textAlign="right"
                 />
-                <input
-                  type="text"
-                  name="total"
-                  placeholder="Total"
-                  value={formData.total}
-                  onChange={(event) => handleChange(event, "total")}
-                  style={{
-                    width: "100px",
-                    height: "30px",
-                    borderRadius: "5px",
-                    outline: "none",
-                    borderColor: "#ccc",
-                  }}
-                />
+                <sapn style={{marginLeft: '80px', color: 'rgb(119, 119, 119)'}}>{totalAmountToDisplay}</sapn>
               </div>
               <div style={{ display: "flex", flexDirection: "column" }}>
                 {formData.selectedFields.map((field, index) => (
@@ -499,7 +471,7 @@ function MainPage() {
                     )}
                     {field === "Shipping"? (
                       <div  style={{marginLeft: '30px', width: '35%'}}>
-                      <PageCount2 width="153px" height="37px" textAlign='left' Symbol={'$'} 
+                      <PageCount2 width="153px" height="37px" textAlign='left' Symbol={Symbol} 
                         type="number"
                         name={field.toLowerCase()}
                       value={formData.fieldsData[field]}
@@ -515,16 +487,10 @@ function MainPage() {
                       onChange={(event) => handleChange(event, field)}
                       setPercentVisible={() => handlePercentVisibilityToggle(field)}
                       isPercentVisible={isPercentVisible[field]} 
+                      symbol={Symbol}
                     />
                     </div>
                     )}
-                    {/* <input
-                      type="text"
-                      name={field.toLowerCase()}
-                      value={formData.fieldsData[field]}
-                      onChange={(event) => handleChange(event, field)}
-                      style={{width: '100px', marginLeft: '80px'}}
-                    /> */}
                     <div className="cross-style" style={{width:'20px', height: '20px', color: 'green'}}>
                     <FontAwesomeIcon
                       onClick={() => {
@@ -588,7 +554,7 @@ function MainPage() {
                       />
                       <div style={{marginLeft:  '30px'}}>
                       
-                      <PageCount2 width="143px" height="40px" textAlign='left' Symbol={'$'} 
+                      <PageCount2 width="143px" height="40px" textAlign='left' Symbol={Symbol} 
                         type="number"
                       name="AmountPaid"
                       value={formData.fieldsData.AmountPaid}
@@ -605,7 +571,6 @@ function MainPage() {
                         textAlign="right"
                       />
                  <sapn style={{marginLeft: '80px', color: 'rgb(119, 119, 119)'}}>{balanceToDisplay}</sapn>
-                 {/* <sapn style={{marginLeft: '80px', color: 'rgb(119, 119, 119)'}}>${calculateFinalTotal()}</sapn> */}
                  </div>
                  
                  </div>
@@ -618,13 +583,16 @@ function MainPage() {
           style={{
             width: "20%",
             height: "100%",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
             justifyContent: "center",
             marginLeft: "30px",
           }}
         >
           <PDFGenerator />
           <div style={{ marginTop: "30px" }}>
-            <Currency />
+            <Currency/>
           </div>
         </div>
       </div>

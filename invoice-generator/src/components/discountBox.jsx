@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
 
-function DiscountBox({ width, height ,value, onChange, setPercentVisible, isPercentVisible}) {
+function DiscountBox({ width, height ,value, onChange, setPercentVisible, isPercentVisible, symbol}) {
   const [isFocused, setIsFocused] = useState(false);
   // const [isPercentVisible, setPercentVisible] = useState(false);
 
@@ -44,7 +44,8 @@ function DiscountBox({ width, height ,value, onChange, setPercentVisible, isPerc
 
   return (
     <div style={containerStyle}>
- <div style={{ position: 'absolute', left:`${!isPercentVisible ? '0px':'87px'}`, height: '100%', display: 'flex', alignItems: 'center',color: 'rgb(119, 119, 119)', backgroundColor: 'white', width: '20%', justifyContent: 'center', borderRadius: '5px' }}>{!isPercentVisible?"$":<span style={{zIndex:10}}>%</span>}</div>      <input
+ <div style={{ position: 'absolute', left:`${!isPercentVisible ? '0px':'87px'}`, height: '100%', display: 'flex', alignItems: 'center',color: 'rgb(119, 119, 119)', backgroundColor: 'white', width: '20%', justifyContent: 'center', borderRadius: '5px' }}>{!isPercentVisible?`${symbol}`:<span style={{zIndex:10}}>%</span>}</div>      
+        <input
         placeholder={value}
         required
         value={value}

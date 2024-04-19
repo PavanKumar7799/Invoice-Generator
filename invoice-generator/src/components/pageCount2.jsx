@@ -28,7 +28,7 @@ function PageCount2({width, height, textAlign, Symbol, onChange, value }) {
       ? "rgba(140, 152, 164, 0.25) 0px 0px 16px 0px"
       : "none",
     outline: "none",
-    height: '95%',
+    height: '94%',
     left:'31px',
     textAlign: textAlign,
     borderRadius: '0px 5px 5px 0px'

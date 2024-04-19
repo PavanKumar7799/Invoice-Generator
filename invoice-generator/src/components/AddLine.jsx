@@ -50,7 +50,6 @@ function LineItem({ }) {
 
 
   console.log("lineItems", lineItems);
-
   return (
     <div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginRight: '20px' }}>
@@ -129,7 +128,7 @@ function LineItem({ }) {
         </button>
       </div>
     </div>
-  );
+  );  
 }
 export default LineItem;
 
