@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -12,10 +12,14 @@ function LineItem({ }) {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("1");
   const [rate, setRate] = useState("0");
-  //   const [amt , setAmt] =useState()
+
+    const [amt , setAmt] =useState()
+
   const dispatch = useDispatch();
   const lineItems = useSelector((s) => s.lineItemsReducer)
-  ////new check
+
+  ////new check 
+
   const handleAddLineItem = () => {
     dispatch(addLineItem());
   };
@@ -34,7 +38,21 @@ function LineItem({ }) {
   const handleMouseLeaveButton = () => {
     setIsHovered(false);
   };
+
+  const amounts = lineItems.lineItems.map(item => item.amount);
+console.log(amounts);
+  
+
+const subtotal = lineItems.lineItems.reduce((total, item) => {
+  return total + parseFloat(item.amount);
+}, 0).toFixed(2); // Convert to fixed decimal places
+
+console.log(subtotal);
+// dispatch(updateSubtotal(subtotal));
+
+let total = subtotal;
   console.log("lineItems", lineItems);
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginRight: '20px' }}>
       {/* Header row */}
@@ -81,10 +99,12 @@ function LineItem({ }) {
                 )}
               </div>
             </div>
+
           </div>
         ))
         :
         ""}
+
       <div style={{ padding: '0px', marginTop: '7px', marginRight: '20px' }}>
         <button style={{
           color: isHovered ? '#FFFFFF' : '#009E74',
