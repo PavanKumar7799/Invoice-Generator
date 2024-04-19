@@ -6,21 +6,26 @@ import InputBox2 from "./InputBox2";
 import SymbolInputBox from "./SymbolInputBox";
 import PDFGenerator from "./PDFGenerator";
 import LogoBox from "./LogoBox";
-import DateInput from "./DatePicker";
 import Currency from "./Currency";
 import LineItem from "./AddLine";
 import DatePicker from "./DatePicker";
-import { Icon } from "semantic-ui-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faPlus } from "@fortawesome/free-solid-svg-icons";
 import DiscountBox from "./discountBox"
 import { updateCalculations } from '../Redux/caclulation'; 
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { selectSubtotal } from '../actions/lineItems';
+import lineItems, { selectSubtotal } from '../actions/lineItems';
 
 
 function MainPage() {
+
+
+
+
+
+
+
   const handleImageChange = (imageData) => {
     console.log("Image data:", imageData);
   };
@@ -582,7 +587,10 @@ function MainPage() {
             marginLeft: "30px",
           }}
         >
-          <PDFGenerator />
+          <PDFGenerator inputBoxData={inputBoxValue}
+          selectedDate={selectedDate}
+          planeInput= {planeInput}
+          />
           <div style={{ marginTop: "30px" }}>
             <Currency/>
           </div>

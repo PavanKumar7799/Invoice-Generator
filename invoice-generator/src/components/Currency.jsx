@@ -11,6 +11,7 @@ const Currency = ({}) => {
         const selectedIndex = event.target.selectedIndex;
         const selectedOption = event.target.options[selectedIndex];
         const symbol = selectedOption.getAttribute('symbol');
+        console.log(symbol)
         dispatch(setCurrency(event.target.value));
         dispatch(setSymbol(symbol));
       };

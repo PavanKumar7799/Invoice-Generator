@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 function InputBox2({width, height, textAlign, onChange, value, name }) {
   const [isFocused, setIsFocused] = useState(false);
   const {symbol} = useSelector((state)=>state.currency)
-console.log(symbol);
+// console.log(symbol);
   const inputStyle = {
     width: width,
     height: height,

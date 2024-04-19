@@ -21,8 +21,8 @@ function LineItem({ }) {
   const lineItems = useSelector((state) => state.lineItems);
     ////new check 
 
-  const subtotal = useSelector(selectSubtotal);
-  console.log(subtotal);
+  // const subtotal = useSelector(selectSubtotal);
+  // console.log(subtotal);
   const handleAddLineItem = () => {
     dispatch(addLineItem());
   };
@@ -49,7 +49,8 @@ function LineItem({ }) {
   };
 
 
-  console.log("lineItems", lineItems);
+  // console.log("lineItems", lineItems);
+
   return (
     <div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginRight: '20px' }}>
@@ -61,7 +62,7 @@ function LineItem({ }) {
           <LableBox placeholder={'Amount'} width="100%" height="10px" />
         </div>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginRight: '10px'}} >  
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginRight: '10px', width:'100%'}} >  
       {/* Input row */}
         {lineItems?.lineItems?.length ?
           lineItems?.lineItems?.map((item, index) => (
@@ -73,7 +74,6 @@ function LineItem({ }) {
                 onChange={(e) => {
                   let value = e.target.value;
                   setName(value)
-                  console.log("value:", e.target.value, index);
                   dispatch(updateItemName({ index, name: value }))
 
                 }} />
@@ -83,7 +83,6 @@ function LineItem({ }) {
                 onChange={(e) => {
                   let value = e.target.value;
                   setQuantity(value)
-                  console.log("value :", value, index);
                   dispatch(updateQuantity({ index, quantity: value }))
                 }}
               />
@@ -93,7 +92,6 @@ function LineItem({ }) {
                 onChange={(e) => {
                   let value = e.target.value;
                   setRate(value)
-                  console.log("value :", value, index);
                   dispatch(updateRate({ index, rate: value }))
                 }}
               />
@@ -131,5 +129,3 @@ function LineItem({ }) {
   );  
 }
 export default LineItem;
-
-

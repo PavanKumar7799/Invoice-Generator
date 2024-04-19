@@ -1,10 +1,35 @@
 import React from 'react';
 import jsPDF from 'jspdf';
 import { FaDownload } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
+import moment from 'moment';
+
+// const lineItems = useSelector((state) => state.lineItems);
+// console.log("lineItems:-----", lineItems);
+
 
 const imageUrl = 'https://i.imgur.com/abcd123.jpg';
 
-const PDFGenerator = () => {
+const PDFGenerator = ({
+  inputBoxData, 
+  selectedDate, 
+  planeInput}) => {
+    
+    
+const check = useSelector((state) => state.calculation.balanceDue);
+
+
+  { console.log(check)}
+
+  
+  console.log("date");
+  
+  
+  const date = moment(selectedDate?.date).format('MMM DD, YYYY');
+  const dueDate = moment(selectedDate?.dueDate).format('MMM DD, YYYY');
+
+
+
   const generatePDF = () => {
 
     const doc = new jsPDF();
@@ -12,13 +37,13 @@ const PDFGenerator = () => {
     doc.addImage(imageUrl, 'JPEG', 10, 10, 50, 50);
 
     doc.setFontSize(12);
-    doc.text("Hello", 10, 70);
+    doc.text(`${inputBoxData?.inputBoxData?.inVoiceFrom}`, 10, 70);
 
 
     doc.setFontSize(14);
     doc.setFont('helvetica', 'bold');
-    doc.text("Bill to:", 10, 85);
-    doc.text("Shippled to:", 60, 85);
+    doc.text(`${inputBoxData?.inputBoxData?.billTo}`, 10, 85);
+    doc.text(`${inputBoxData?.inputBoxData?.shipTo}`, 60, 85);
 
 
     doc.setFontSize(10);
@@ -40,24 +65,24 @@ const PDFGenerator = () => {
 
 
     doc.setFont('helvetica', 'bold');
-    doc.text("Date:", 140, 40);
+    doc.text(`Date: `, 140, 40);
     doc.setFont('helvetica', 'normal');
-    doc.text("April 15, 2024", 155, 40);
+    doc.text(`${date}`, 155, 40);
 
     doc.setFont('helvetica', 'bold');
-    doc.text("Due Date:", 140, 50);
+    doc.text(`Due Date: `, 140, 50);
     doc.setFont('helvetica', 'normal');
-    doc.text("April 30, 2024", 165, 50);
+    doc.text(`${dueDate}`, 165, 50);
 
     doc.setFont('helvetica', 'bold');
-    doc.text("Payment Terms:", 140, 60);
+    doc.text("Payment Terms: ", 140, 60);
     doc.setFont('helvetica', 'normal');
-    doc.text("Net 30 Days", 177, 60);
+    doc.text(`${planeInput?.paymentTerms}`, 177, 60);
 
     doc.setFont('helvetica', 'bold');
     doc.text("PO Number:", 140, 70);
     doc.setFont('helvetica', 'normal');
-    doc.text("12345", 167, 70);
+    doc.text(`${planeInput?.poNumber}`, 167, 70);
 
 
 
