@@ -3,7 +3,7 @@ import InputBox from "./InputBox";
 import CustomeLableBox from "./CustomeLableBox";
 import InvoiceName from "./invoicename";
 import InputBox2 from "./InputBox2";
-import PageCount2 from "./pageCount2";
+import SymbolInputBox from "./SymbolInputBox";
 import PDFGenerator from "./PDFGenerator";
 import LogoBox from "./LogoBox";
 import DateInput from "./DatePicker";
@@ -36,11 +36,6 @@ function MainPage() {
   const totalAmountToDisplay = isNaN(reduxTotal) ? `$0.0` : `${selectedCurrency} ${reduxTotal}`;
   const balanceToDisplay = isNaN(reduxBalance) ? `$0.0` : `${selectedCurrency} ${reduxBalance}`;
 
-  const [fieldOrder, setFieldOrder] = useState([]); 
-
-  const addFieldToTop = (field) => {
-    setFieldOrder([field, ...fieldOrder]);
-  };
 
   const [isPercentVisible, setIsPercentVisible] = useState({
     Discount: false,
@@ -55,7 +50,7 @@ function MainPage() {
   };
 
 
-  const [customeLabel, setCustomeLabel] = useState("");
+  const [customeLabel, setCustomeLabel] = useState();
   const [selectedDate, setSelectedDate] = useState({
     date: '',
     dueDate: ''
@@ -73,7 +68,6 @@ function MainPage() {
     notes: '',
     terms: ''
   })
-
 
   const [formData, setFormData] = useState({
     total: "",
@@ -123,10 +117,6 @@ function MainPage() {
     }));
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("Final Total:", finalTotal);  
-  };
 
 
   const handleInputBoxChange=(event)=>{
@@ -140,6 +130,7 @@ function MainPage() {
   const handleCustomeLableChange=(event)=>{
     setCustomeLabel(event.target.value)
   }
+  // console.log(customeLabel);
 
   const handleDatePickerChange=(date, whichDate)=>{
     setSelectedDate(prevState=>({
@@ -158,9 +149,6 @@ function MainPage() {
   }
 
   useEffect(() => {
-    // console.log(customeLabel);
-    // console.log(isPercentVisible.Discount);
-    // console.log(formData.fieldsData.Discount+'%');
   }); 
 
 
@@ -169,6 +157,8 @@ function MainPage() {
   const shipping = formData.fieldsData.Shipping; 
   const amountPaid = formData.fieldsData.AmountPaid; 
   dispatch(updateCalculations({ discount, tax, shipping,  amountPaid, subtotal }));
+
+
 
   return (
     <div
@@ -205,7 +195,7 @@ function MainPage() {
                 }}
               >
                 <InvoiceName width="250px" height="auto" />
-                <PageCount2 width="150px" height="38px" textAlign='right' Symbol={'#'} />
+                <SymbolInputBox width="150px" height="38px" textAlign='right' Symbol={'#'} />
               </div>
             </div>
             <div
@@ -254,6 +244,8 @@ function MainPage() {
                       height="18px"
                       placeholder="Ship To"
                       textAlign="left"
+                      onChange={handleCustomeLableChange}
+                      value={customeLabel}
                     />
                     <InputBox
                       width="100%"
@@ -433,7 +425,7 @@ function MainPage() {
                   placeholder="Subtotal"
                   textAlign="right"
                 />
-                <sapn style={{marginLeft: '80px', color: 'rgb(119, 119, 119)'}}>{totalAmountToDisplay}</sapn>
+                <sapn style={{marginLeft: '80px', color: 'rgb(119, 119, 119)'}}>{subtotal}</sapn>
               </div>
               <div style={{ display: "flex", flexDirection: "column" }}>
                 {formData.selectedFields.map((field, index) => (
@@ -471,7 +463,7 @@ function MainPage() {
                     )}
                     {field === "Shipping"? (
                       <div  style={{marginLeft: '30px', width: '35%'}}>
-                      <PageCount2 width="153px" height="37px" textAlign='left' Symbol={Symbol} 
+                      <SymbolInputBox width="153px" height="37px" textAlign='left' Symbol={Symbol} 
                         type="number"
                         name={field.toLowerCase()}
                       value={formData.fieldsData[field]}
@@ -554,7 +546,7 @@ function MainPage() {
                       />
                       <div style={{marginLeft:  '30px'}}>
                       
-                      <PageCount2 width="143px" height="40px" textAlign='left' Symbol={Symbol} 
+                      <SymbolInputBox width="143px" height="40px" textAlign='left' Symbol={Symbol} 
                         type="number"
                       name="AmountPaid"
                       value={formData.fieldsData.AmountPaid}
