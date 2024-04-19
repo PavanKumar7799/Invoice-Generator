@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 // import { useSelector } from "react-redux";
 
-function PageCount({width, height, textAlign, onChange, value, name }) {
+function InputBox2({width, height, textAlign, onChange, value, name }) {
   const [isFocused, setIsFocused] = useState(false);
+  const {symbol} = useSelector((state)=>state.currency)
+console.log(symbol);
   const inputStyle = {
     width: width,
     height: height,
@@ -17,11 +20,12 @@ function PageCount({width, height, textAlign, onChange, value, name }) {
     transition: 'box-shadow 0.15s ease-in-out, border-color 0.15s ease-in-out',
     textAlign: textAlign,
     outline : 'none',
-    display: 'flex',
+    display: 'flex', 
     alignItems: 'center',
     justifyContent: 'center',
     resize:'none',
     marginBottom: '4px',
+
     
   };
   const handleFocus = () => {
@@ -48,4 +52,4 @@ function PageCount({width, height, textAlign, onChange, value, name }) {
   </div>
   );
 }
-export default PageCount;
+export default InputBox2;

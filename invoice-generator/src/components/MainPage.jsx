@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import InputBox from "./InputBox";
 import CustomeLableBox from "./CustomeLableBox";
 import InvoiceName from "./invoicename";
-import PageCount from "./pageCount";
+import InputBox2 from "./InputBox2";
 import PageCount2 from "./pageCount2";
 import PDFGenerator from "./PDFGenerator";
 import LogoBox from "./LogoBox";
@@ -357,9 +357,9 @@ function MainPage() {
                   }}
                 >
                     <DatePicker width="125px" height="18px" onChange={(date)=>handleDatePickerChange(date, 'date')} value={selectedDate.date} />
-                  <PageCount width="125px" height="18px" textAlign='right' onChange={handlePlaneInputChange} value={planeInput.paymentTerms} name="paymentTerms" />
+                  <InputBox2 width="125px" height="18px" textAlign='right' onChange={handlePlaneInputChange} value={planeInput.paymentTerms} name="paymentTerms" />
                   <DatePicker width="125px" height="18px"onChange={(date)=>handleDatePickerChange(date, 'dueDate')} value={selectedDate.dueDate} />
-                  <PageCount width="125px" height="18px" textAlign='right'  onChange={handlePlaneInputChange} value={planeInput.poNumber} name="poNumber" />
+                  <InputBox2 width="125px" height="18px" textAlign='right'  onChange={handlePlaneInputChange} value={planeInput.poNumber} name="poNumber" />
                 </div>
               </div>
             </div>
