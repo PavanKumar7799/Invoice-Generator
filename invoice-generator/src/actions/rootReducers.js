@@ -1,8 +1,8 @@
-import { combineReducers } from "redux";
-import lineItemsReducer from "./lineItems";
+import { combineReducers } from 'redux';
+import lineItemsReducer from './lineItems';
 
 const rootReducer = combineReducers({
-    lineItemsReducer
-})
+  lineItems: lineItemsReducer,
+});
 
 export default rootReducer;

@@ -3,6 +3,7 @@ import Calculation from "./caclulation";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import currencySlice from "./currencySlice.js";
+import lineItems from "../actions/lineItems.js";
 
 const persistConfig = {
     key: "root",
@@ -11,7 +12,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     calculation: Calculation,
-    currency: currencySlice, // Add currencySlice reducer
+    currency: currencySlice,
+    lineItems:lineItems, // Add currencySlice reducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
