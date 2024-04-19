@@ -1,19 +1,23 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, combineReducers  } from "@reduxjs/toolkit";
 import Calculation from "./caclulation"; 
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import currencySlice from "./currencySlice.js";
 
 const persistConfig = {
     key: "root",
     storage,
 }
 
-const persistedReducer = persistReducer(persistConfig, Calculation);
+const rootReducer = combineReducers({
+    calculation: Calculation,
+    currency: currencySlice, // Add currencySlice reducer
+});
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-    reducer: {
-        calculation: persistedReducer,
-    },
-})
+    reducer: persistedReducer,
+});
 
 export const persistor = persistStore(store);

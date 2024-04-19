@@ -27,10 +27,15 @@ function MainPage() {
   const dispatch = useDispatch();
 
   const { discount: reduxDiscount, tax: reduxTax, shipping: reduxShipping, total: reduxTotal, amountPaid: reduxAmount, balanceDue: reduxBalance } = useSelector(state => state.calculation);
-
-
   const totalAmountToDisplay = isNaN(reduxTotal) ? `$0.0` : `$${reduxTotal}`;
   const balanceToDisplay = isNaN(reduxBalance) ? `$0.0` : `$${reduxBalance}`;
+
+  const [fieldOrder, setFieldOrder] = useState([]); // State to maintain the order of fields
+
+  // Function to add a field to the top of the list
+  const addFieldToTop = (field) => {
+    setFieldOrder([field, ...fieldOrder]);
+  };
 
   const [isPercentVisible, setIsPercentVisible] = useState({
     Discount: false,

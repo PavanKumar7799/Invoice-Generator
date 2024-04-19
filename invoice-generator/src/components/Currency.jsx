@@ -1,12 +1,13 @@
 import React from 'react';
 
-const Currency = () => {
+const Currency = (onChange) => {
     return (
         <div>
             <div style={{marginLeft:"10px"}}>Currency</div>
             <select className="form-select form-select-sm ng-valid ng-touched ng-dirty ng-valid-parse" 
                 ng-model="document.currency" 
                 ng-options="currency.code as currency.name for (code, currency) in currencies"
+                onChange={onChange}
                 style={{ width: "160px", height:"37px", margin:"10px", border:"1px solid gray", borderRadius:"5px" }}>
                 <option value="AED" label="AED (د.إ)">AED (د.إ)</option>
                 <option value="AFN" label="AFN">AFN</option>
