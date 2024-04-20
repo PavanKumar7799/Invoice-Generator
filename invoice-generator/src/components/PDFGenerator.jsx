@@ -143,7 +143,7 @@ const PDFGenerator = ({
     doc.setFont('helvetica', 'normal');
     doc.text(`${inputBoxData?.terms}`, 10, 260);
 
-    doc.save(`Invoice # ${count}.pdf`); // save d pdf wid count 
+    doc.save(`Invoice_${count}.pdf`); // save d pdf wid count 
   };
 
   return (
