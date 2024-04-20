@@ -19,8 +19,7 @@ function SymbolInputBox({width, height, textAlign, Symbol, onChange, value }) {
   const inputStyle = {
     
     position: 'absolute',
-    // width: '49px',
-    width: '78%',
+    width: '76%',
     backgroundColor: "#FFFFFF",
     border:'none',
     color: "#1E2022",
@@ -31,7 +30,8 @@ function SymbolInputBox({width, height, textAlign, Symbol, onChange, value }) {
     height: '94%',
     left:'31px',
     textAlign: textAlign,
-    borderRadius: '0px 5px 5px 0px'
+    borderRadius: '0px 5px 5px 0px',
+    paddingLeft: '5px'
   };
 
   const handleFocus = () => {
@@ -43,7 +43,7 @@ function SymbolInputBox({width, height, textAlign, Symbol, onChange, value }) {
   };
   return (
     <div style={containerStyle}>
-    <div style={{ position: 'absolute', left: '0', height: '100%', display: 'flex', alignItems: 'center',color: 'rgb(119, 119, 119)', backgroundColor: 'white', width: '20%', justifyContent: 'center', borderRadius: '5px' }}>{Symbol}</div>
+    <div style={{ position: 'absolute', left: '0', height: '100%', display: 'flex', alignItems: 'center',color: 'rgb(119, 119, 119)', backgroundColor: 'white', width: '20%', justifyContent: 'center', borderRadius: '5px', fontSize: '15px' }}>{Symbol}</div>
     <input
       placeholder={value}
       required

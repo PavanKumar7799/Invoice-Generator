@@ -11,12 +11,11 @@ import LineItem from "./AddLine";
 import DatePicker from "./DatePicker";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faPlus } from "@fortawesome/free-solid-svg-icons";
-import DiscountBox from "./discountBox"
-import { updateCalculations } from '../Redux/caclulation'; 
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import { selectSubtotal } from '../actions/lineItems';
-
+import DiscountBox from "./discountBox";
+import { updateCalculations } from "../Redux/caclulation";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { selectSubtotal } from "../actions/lineItems";
 
 function MainPage() {
 
@@ -25,7 +24,7 @@ function MainPage() {
   const [imgUrl, setImgUrl] = useState("");
 
   const handleImageChange = (imageUrl) => {
-    setImgUrl(imageUrl); 
+    setImgUrl(imageUrl);
   };
 
   const [boxLabel, setBoxLabel] = useState({
@@ -40,15 +39,19 @@ function MainPage() {
 
   const subtotal = useSelector(selectSubtotal);
 
-  
-  const {selectedCurrency} = useSelector((state) => state.currency);
-  const {Symbol} = useSelector((state) => state.currency);
+  const { selectedCurrency } = useSelector((state) => state.currency);
+  const { Symbol } = useSelector((state) => state.currency);
   const dispatch = useDispatch();
 
-  const {  total: reduxTotal, balanceDue: reduxBalance } = useSelector(state => state.calculation);
-  const totalAmountToDisplay = isNaN(reduxTotal) ? `$0.0` : `${selectedCurrency} ${reduxTotal}`;
-  const balanceToDisplay = isNaN(reduxBalance) ? `$0.0` : `${selectedCurrency} ${reduxBalance}`;
-
+  const { total: reduxTotal, balanceDue: reduxBalance } = useSelector(
+    (state) => state.calculation
+  );
+  const totalAmountToDisplay = isNaN(reduxTotal)
+    ? `$0.0`
+    : `${selectedCurrency} ${reduxTotal}`;
+  const balanceToDisplay = isNaN(reduxBalance)
+    ? `$0.0`
+    : `${selectedCurrency} ${reduxBalance}`;
 
   const [isPercentVisible, setIsPercentVisible] = useState({
     Discount: false,
@@ -58,48 +61,46 @@ function MainPage() {
   const handlePercentVisibilityToggle = (field) => {
     setIsPercentVisible((prevState) => ({
       ...prevState,
-      [field]: !prevState[field]
+      [field]: !prevState[field],
     }));
   };
 
-
   const [labels, setLabels] = useState({
-    billToLabel: 'Bill To',
-    shipToLabel: 'Ship To',
-    invoiceLabel: 'INVOICE',
-    dateLabel: 'Date',
-    paymentTermsLabel: 'Payment Terms',
-    dueDateLabel: 'Due Date',
-    poNumberLabel: 'PO Number',
-    notesLabel: 'Notes',
-    termsLabel: 'Terms',
-    subtotalLabel: 'Subtotal',
-    discountLabel: 'Discount',
-    taxLabel: 'Tax',
-    shippingLabel: 'Shipping',
-    TotalLabel: 'Total',
-    amountPaidLabel: 'Amount Paid',
-    BalanceDueLabel: 'Balance'
+    billToLabel: "Bill To",
+    shipToLabel: "Ship To",
+    invoiceLabel: "INVOICE",
+    dateLabel: "Date",
+    paymentTermsLabel: "Payment Terms",
+    dueDateLabel: "Due Date",
+    poNumberLabel: "PO Number",
+    notesLabel: "Notes",
+    termsLabel: "Terms",
+    subtotalLabel: "Subtotal",
+    discountLabel: "Discount",
+    taxLabel: "Tax",
+    shippingLabel: "Shipping",
+    TotalLabel: "Total",
+    amountPaidLabel: "Amount Paid",
+    BalanceDueLabel: "Balance",
   });
 
-  
   const [selectedDate, setSelectedDate] = useState({
-    date: '',
-    dueDate: ''
+    date: "",
+    dueDate: "",
   });
 
   const [planeInput, setPlaneInput] = useState({
-    paymentTerms: '',
-    poNumber: ''
-  })
+    paymentTerms: "",
+    poNumber: "",
+  });
 
   const [inputBoxValue, setInputBoxValue] = useState({
-    inVoiceFrom: '',
-    billTo: '',
-    shipTo: '',
-    notes: '',
-    terms: ''
-  })
+    inVoiceFrom: "",
+    billTo: "",
+    shipTo: "",
+    notes: "",
+    terms: "",
+  });
 
   const [formData, setFormData] = useState({
     total: "",
@@ -109,12 +110,11 @@ function MainPage() {
       Discount: "",
       Tax: "",
       Shipping: "",
-      AmountPaid: ""
+      AmountPaid: "",
     },
   });
 
   const handleChange = (event, fieldName) => {
-    
     const { value } = event.target;
     if (fieldName === "total") {
       setFormData({
@@ -140,62 +140,60 @@ function MainPage() {
       }));
     }
   };
-  
+
   const removeField = (fieldName) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       items: [...prevFormData.items, fieldName],
-      selectedFields: prevFormData.selectedFields.filter((field) => field !== fieldName),
+      selectedFields: prevFormData.selectedFields.filter(
+        (field) => field !== fieldName
+      ),
     }));
   };
 
-
-
-  const handleInputBoxChange=(event)=>{
-    const {name, value} = event.target;
-    setInputBoxValue(prevState=>({
+  const handleInputBoxChange = (event) => {
+    const { name, value } = event.target;
+    setInputBoxValue((prevState) => ({
       ...prevState,
-      [name]:value
+      [name]: value,
     }));
-  }
+  };
+
+  console.log(inputBoxValue)
 
   const handleLabelChange = (label, value) => {
-  setLabels(prevLabels => ({
-    ...prevLabels,
-    [label]: value
-  }));
-}
+    setLabels((prevLabels) => ({
+      ...prevLabels,
+      [label]: value,
+    }));
+  };
 
-
-  const handleDatePickerChange=(date, whichDate)=>{
-    setSelectedDate(prevState=>({
+  const handleDatePickerChange = (date, whichDate) => {
+    setSelectedDate((prevState) => ({
       ...prevState,
-      [whichDate]:date
-    }))
-  }
+      [whichDate]: date,
+    }));
+  };
 
-  const handlePlaneInputChange=(event)=>{
-    const {name, value} = event.target
-    setPlaneInput((prevState)=>({
+  const handlePlaneInputChange = (event) => {
+    const { name, value } = event.target;
+    setPlaneInput((prevState) => ({
       ...prevState,
-      [name]:value
-    }))
+      [name]: value,
+    }));
+  };
 
-  }
-
-  useEffect(() => {
-    // console.log(inputBoxValue.billTo,"   ",labels.billToLabel);
-    // console.log(inputBoxValue.shipTo," ",labels.shipToLabel);
-  }); 
-
-
-  const discount = (isPercentVisible.Discount)?  formData.fieldsData.Discount+'%' : formData.fieldsData.Discount; 
-  const tax = (isPercentVisible.Tax)? formData.fieldsData.Tax+'%' :  formData.fieldsData.Tax
-  const shipping = formData.fieldsData.Shipping; 
-  const amountPaid = formData.fieldsData.AmountPaid; 
-  dispatch(updateCalculations({ discount, tax, shipping,  amountPaid, subtotal }));
-
-
+  const discount = isPercentVisible.Discount
+    ? formData.fieldsData.Discount + "%"
+    : formData.fieldsData.Discount;
+  const tax = isPercentVisible.Tax
+    ? formData.fieldsData.Tax + "%"
+    : formData.fieldsData.Tax;
+  const shipping = formData.fieldsData.Shipping;
+  const amountPaid = formData.fieldsData.AmountPaid;
+  dispatch(
+    updateCalculations({ discount, tax, shipping, amountPaid, subtotal })
+  );
   const [count, setCount] = useState('1'); 
 
   const handleCountChange = (count) => {
@@ -226,7 +224,7 @@ function MainPage() {
         >
           <div>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <LogoBox  onImageChange={handleImageChange} />
+              <LogoBox onImageChange={handleImageChange} />
               <div
                 style={{
                   display: "flex",
@@ -236,10 +234,13 @@ function MainPage() {
                   paddingRight: "40px",
                 }}
               >
-                <InvoiceName width="250px" height="auto" 
-                  onChange={(event)=>handleLabelChange('invoiceLabel', event.target.value)}
+                <InvoiceName
+                  width="250px"
+                  height="auto"
+                  onChange={(event) =>
+                    handleLabelChange("invoiceLabel", event.target.value)
+                  }
                   value={labels.invoiceLabel}
-
                 />
                 <SymbolInputBox width="150px" height="38px" textAlign='right' Symbol={`#`} value={count} 
                 onChange={handleCountChange}/>
@@ -290,8 +291,10 @@ function MainPage() {
                       width="100%"
                       height="18px"
                       textAlign="left"
-                      onChange={(event) => handleLabelChange('billToLabel', event.target.value)}
-  value={labels.billToLabel}
+                      onChange={(event) =>
+                        handleLabelChange("billToLabel", event.target.value)
+                      }
+                      value={labels.billToLabel}
                     />
                     <InputBox
                       width="100%"
@@ -316,7 +319,9 @@ function MainPage() {
                       width="100%"
                       height="18px"
                       textAlign="left"
-                      onChange={(event) => handleLabelChange('shipToLabel', event.target.value)}
+                      onChange={(event) =>
+                        handleLabelChange("shipToLabel", event.target.value)
+                      }
                       value={labels.shipToLabel}
                     />
                     <InputBox
@@ -350,29 +355,37 @@ function MainPage() {
                     width="200px"
                     height="18px"
                     textAlign="right"
-                    onChange={(event) => handleLabelChange('dateLabel', event.target.value)}
-                      value={labels.dateLabel}
+                    onChange={(event) =>
+                      handleLabelChange("dateLabel", event.target.value)
+                    }
+                    value={labels.dateLabel}
                   />
                   <CustomeLableBox
                     width="200px"
                     height="18px"
                     textAlign="right"
-                    onChange={(event) => handleLabelChange('paymentTermsLabel', event.target.value)}
-                      value={labels.paymentTermsLabel}
+                    onChange={(event) =>
+                      handleLabelChange("paymentTermsLabel", event.target.value)
+                    }
+                    value={labels.paymentTermsLabel}
                   />
                   <CustomeLableBox
                     width="200px"
                     height="18px"
                     textAlign="right"
-                    onChange={(event) => handleLabelChange('dueDateLabel', event.target.value)}
-                      value={labels.dueDateLabel}
+                    onChange={(event) =>
+                      handleLabelChange("dueDateLabel", event.target.value)
+                    }
+                    value={labels.dueDateLabel}
                   />
                   <CustomeLableBox
                     width="200px"
                     height="18px"
                     textAlign="right"
-                    onChange={(event) => handleLabelChange('poNumberLabel', event.target.value)}
-                      value={labels.poNumberLabel}
+                    onChange={(event) =>
+                      handleLabelChange("poNumberLabel", event.target.value)
+                    }
+                    value={labels.poNumberLabel}
                   />
                 </div>
                 <div
@@ -382,16 +395,40 @@ function MainPage() {
                     gap: "0px",
                   }}
                 >
-                    <DatePicker width="125px" height="18px" onChange={(date)=>handleDatePickerChange(date, 'date')} value={selectedDate.date} />
-                  <InputBox2 width="125px" height="18px" textAlign='right' onChange={handlePlaneInputChange} value={planeInput.paymentTerms} name="paymentTerms" />
-                  <DatePicker width="125px" height="18px"onChange={(date)=>handleDatePickerChange(date, 'dueDate')} value={selectedDate.dueDate} />
-                  <InputBox2 width="125px" height="18px" textAlign='right'  onChange={handlePlaneInputChange} value={planeInput.poNumber} name="poNumber" />
+                  <DatePicker
+                    width="125px"
+                    height="18px"
+                    onChange={(date) => handleDatePickerChange(date, "date")}
+                    value={selectedDate.date}
+                  />
+                  <InputBox2
+                    width="125px"
+                    height="18px"
+                    textAlign="right"
+                    onChange={handlePlaneInputChange}
+                    value={planeInput.paymentTerms}
+                    name="paymentTerms"
+                  />
+                  <DatePicker
+                    width="125px"
+                    height="18px"
+                    onChange={(date) => handleDatePickerChange(date, "dueDate")}
+                    value={selectedDate.dueDate}
+                  />
+                  <InputBox2
+                    width="125px"
+                    height="18px"
+                    textAlign="right"
+                    onChange={handlePlaneInputChange}
+                    value={planeInput.poNumber}
+                    name="poNumber"
+                  />
                 </div>
               </div>
             </div>
           </div>
-          <div style={{marginTop: '40px'}}>
-            <LineItem  handleChange={handleLabelBoxChange}/>
+          <div style={{ marginTop: "40px" }}>
+            <LineItem handleChange={handleLabelBoxChange} />
           </div>
           <div
             style={{
@@ -421,8 +458,10 @@ function MainPage() {
                   width="100%"
                   height="18px"
                   textAlign="left"
-                  onChange={(event) => handleLabelChange('notesLabel', event.target.value)}
-                      value={labels.notesLabel}
+                  onChange={(event) =>
+                    handleLabelChange("notesLabel", event.target.value)
+                  }
+                  value={labels.notesLabel}
                 />
                 <InputBox
                   width="100%"
@@ -446,8 +485,10 @@ function MainPage() {
                   width="100%"
                   height="18px"
                   textAlign="left"
-                  onChange={(event) => handleLabelChange('termsLabel', event.target.value)}
-                      value={labels.termsLabel}
+                  onChange={(event) =>
+                    handleLabelChange("termsLabel", event.target.value)
+                  }
+                  value={labels.termsLabel}
                 />
                 <InputBox
                   width="100%"
@@ -468,16 +509,25 @@ function MainPage() {
               }}
             >
               <div
-                style={{ display: "flex", flexDirection: "row", gap: "90px" , marginBottom: '10px'}}
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: "90px",
+                  marginBottom: "10px",
+                }}
               >
                 <CustomeLableBox
                   width="100%"
                   height="18px"
                   textAlign="right"
-                  onChange={(event) => handleLabelChange('subtotalLabel', event.target.value)}
-                      value={labels.subtotalLabel}
+                  onChange={(event) =>
+                    handleLabelChange("subtotalLabel", event.target.value)
+                  }
+                  value={labels.subtotalLabel}
                 />
-                <sapn style={{marginLeft: '80px', color: 'rgb(119, 119, 119)'}}>{subtotal}</sapn>
+                <sapn
+                  style={{ marginLeft: "58px", color: "rgb(119, 119, 119)" }}
+                >{`${selectedCurrency} ${subtotal}`}</sapn>
               </div>
               <div style={{ display: "flex", flexDirection: "column" }}>
                 {formData.selectedFields.map((field, index) => (
@@ -494,8 +544,10 @@ function MainPage() {
                         width="100%"
                         height="18px"
                         textAlign="right"
-                        onChange={(event) => handleLabelChange('discountLabel', event.target.value)}
-                      value={labels.discountLabel}
+                        onChange={(event) =>
+                          handleLabelChange("discountLabel", event.target.value)
+                        }
+                        value={labels.discountLabel}
                       />
                     )}
                     {field === "Tax" && (
@@ -503,8 +555,10 @@ function MainPage() {
                         width="100%"
                         height="18px"
                         textAlign="right"
-                        onChange={(event) => handleLabelChange('taxLabel', event.target.value)}
-                      value={labels.taxLabel}
+                        onChange={(event) =>
+                          handleLabelChange("taxLabel", event.target.value)
+                        }
+                        value={labels.taxLabel}
                       />
                     )}
                     {field === "Shipping" && (
@@ -512,43 +566,53 @@ function MainPage() {
                         width="100%"
                         height="18px"
                         textAlign="right"
-                        onChange={(event) => handleLabelChange('shippingLabel', event.target.value)}
-                      value={labels.shippingLabel}
+                        onChange={(event) =>
+                          handleLabelChange("shippingLabel", event.target.value)
+                        }
+                        value={labels.shippingLabel}
                       />
                     )}
-                    {field === "Shipping"? (
-                      <div  style={{marginLeft: '30px', width: '35%'}}>
-                      <SymbolInputBox width="153px" height="37px" textAlign='left' Symbol={Symbol} 
-                        type="number"
-                        name={field.toLowerCase()}
-                      value={formData.fieldsData[field]}
-                      onChange={(event) => handleChange(event, field)}
-                      />
+                    {field === "Shipping" ? (
+                      <div style={{ marginLeft: "30px", width: "35%" }}>
+                        <SymbolInputBox
+                          width="153px"
+                          height="37px"
+                          textAlign="left"
+                          Symbol={Symbol}
+                          type="number"
+                          name={field.toLowerCase()}
+                          value={formData.fieldsData[field]}
+                          onChange={(event) => handleChange(event, field)}
+                        />
                       </div>
-                    ):(
-                    <div  style={{marginLeft: '30px', width: '35%'}}>
-                    <DiscountBox 
-                      type="text"
-                      name={field.toLowerCase()}
-                      value={formData.fieldsData[field]}
-                      onChange={(event) => handleChange(event, field)}
-                      setPercentVisible={() => handlePercentVisibilityToggle(field)}
-                      isPercentVisible={isPercentVisible[field]} 
-                      symbol={Symbol}
-                    />
-                    </div>
+                    ) : (
+                      <div style={{ marginLeft: "30px", width: "35%" }}>
+                        <DiscountBox
+                          type="text"
+                          name={field.toLowerCase()}
+                          value={formData.fieldsData[field]}
+                          onChange={(event) => handleChange(event, field)}
+                          setPercentVisible={() =>
+                            handlePercentVisibilityToggle(field)
+                          }
+                          isPercentVisible={isPercentVisible[field]}
+                          symbol={Symbol}
+                        />
+                      </div>
                     )}
-                    <div className="cross-style" style={{width:'20px', height: '20px', color: 'green'}}>
-                    <FontAwesomeIcon
-                      onClick={() => {
-                        removeField(field);
-                      }}
-                      icon={faXmark}
-                      style={{ marginLeft: "31px", position: 'absolute'}}
-                      className="fab-cross-icon"
-                    />
+                    <div
+                      className="cross-style"
+                      style={{ width: "20px", height: "20px", color: "green" }}
+                    >
+                      <FontAwesomeIcon
+                        onClick={() => {
+                          removeField(field);
+                        }}
+                        icon={faXmark}
+                        style={{ marginLeft: "31px", position: "absolute" }}
+                        className="fab-cross-icon"
+                      />
                     </div>
-                    
                   </div>
                 ))}
 
@@ -558,9 +622,7 @@ function MainPage() {
                     justifyContent: "center",
                   }}
                 >
-                
                   {formData.items.map((item) => (
-                    
                     <button
                       key={item}
                       style={{
@@ -570,60 +632,111 @@ function MainPage() {
                         border: "none",
                         fontSize: "16px",
                         marginLeft: "20px",
-                        color: '#009e74 ',
-                        fontWeight: '500'
+                        color: "#009e74 ",
+                        fontWeight: "500",
                       }}
                       onClick={() => handleFieldSelection(item)}
                     >
-                    <FontAwesomeIcon icon={faPlus} style={{ marginRight: '5px' }} />
+                      <FontAwesomeIcon
+                        icon={faPlus}
+                        style={{ marginRight: "5px" }}
+                      />
                       {item}
                     </button>
                   ))}
                 </div>
 
-                <div style={{display: 'flex', flexDirection: 'column', gap:"10px"}}>
-                <div style={{display:'flex', flexDirection: 'row',  justifyContent: 'space-between', alignItems: 'center'}}>
-                <CustomeLableBox
-                        width="100%"
-                        height="18px"
-                        textAlign="right"
-                        onChange={(event) => handleLabelChange('TotalLabel', event.target.value)}
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "10px",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <CustomeLableBox
+                      width="100%"
+                      height="18px"
+                      textAlign="right"
+                      onChange={(event) =>
+                        handleLabelChange("TotalLabel", event.target.value)
+                      }
                       value={labels.TotalLabel}
-                      />
-                 <sapn style={{marginLeft: '80px', color: 'rgb(119, 119, 119)'}}>{totalAmountToDisplay}</sapn>
-                </div>
-               
-                <div style={{display:'flex', flexDirection: 'row', justifyContent: '', alignItems: 'center'}}>
-                 <CustomeLableBox
-                        width="100%"
-                        height="18px"
-                        textAlign="right"
-                        onChange={(event) => handleLabelChange('amountPaidLabel', event.target.value)}
+                    />
+                    <sapn
+                      style={{
+                        marginLeft: "80px",
+                        color: "rgb(119, 119, 119)",
+                      }}
+                    >
+                      {totalAmountToDisplay}
+                    </sapn>
+                  </div>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "",
+                      alignItems: "center",
+                    }}
+                  >
+                    <CustomeLableBox
+                      width="100%"
+                      height="18px"
+                      textAlign="right"
+                      onChange={(event) =>
+                        handleLabelChange("amountPaidLabel", event.target.value)
+                      }
                       value={labels.amountPaidLabel}
-                      />
-                      <div style={{marginLeft:  '30px'}}>
-                      
-                      <SymbolInputBox width="143px" height="40px" textAlign='left' Symbol={Symbol} 
+                    />
+                    <div style={{ marginLeft: "30px" }}>
+                      <SymbolInputBox
+                        width="143px"
+                        height="40px"
+                        textAlign="left"
+                        Symbol={Symbol}
                         type="number"
-                      name="AmountPaid"
-                      value={formData.fieldsData.AmountPaid}
-                      onChange={(event) => handleChange(event, "AmountPaid")}
+                        name="AmountPaid"
+                        value={formData.fieldsData.AmountPaid}
+                        onChange={(event) => handleChange(event, "AmountPaid")}
                       />
-                      
-                      </div>
-                 </div>
-                 <div style={{display:'flex', flexDirection: 'row',  justifyContent: 'space-between', alignItems: 'center'}}>
-                 <CustomeLableBox
-                        width="100%"
-                        height="18px"
-                        textAlign="right"
-                        onChange={(event) => handleLabelChange('BalanceDueLabel', event.target.value)}
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <CustomeLableBox
+                      width="100%"
+                      height="18px"
+                      textAlign="right"
+                      onChange={(event) =>
+                        handleLabelChange("BalanceDueLabel", event.target.value)
+                      }
                       value={labels.BalanceDueLabel}
-                      />
-                 <sapn style={{marginLeft: '80px', color: 'rgb(119, 119, 119)'}}>{balanceToDisplay}</sapn>
-                 </div>
-                 
-                 </div>
+                    />
+                    <sapn
+                      style={{
+                        marginLeft: "80px",
+                        color: "rgb(119, 119, 119)",
+                      }}
+                    >
+                      {balanceToDisplay}
+                    </sapn>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -633,14 +746,14 @@ function MainPage() {
           style={{
             width: "20%",
             height: "100%",
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
             justifyContent: "center",
             marginLeft: "30px",
           }}
         >
-          <PDFGenerator 
+          <PDFGenerator
             inputBoxData={inputBoxValue}
           selectedDate={selectedDate}
           planeInput={planeInput}
@@ -652,7 +765,7 @@ function MainPage() {
           handleCountChange={handleCountChange}
           />
           <div style={{ marginTop: "30px" }}>
-            <Currency/>
+            <Currency />
           </div>
         </div>
       </div>

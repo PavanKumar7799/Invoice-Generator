@@ -10,7 +10,7 @@ function InputBox({width, height, placeholder, onChange, value, name}) {
     border: "1px solid rgba(196, 205, 213, .7)",
     borderRadius: "8px",
     padding: "10px",
-    fontSize: "16px",
+    fontSize: "15px",
     fontFamily: "Inter, sans-serif",
     color: "#1E2022",
     boxShadow: isFocused

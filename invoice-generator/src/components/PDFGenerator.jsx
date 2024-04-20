@@ -4,6 +4,7 @@ import { FaDownload } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 import { selectSubtotal } from '../actions/lineItems';
+import { Label } from 'semantic-ui-react';
 
 const PDFGenerator = ({
   inputBoxData, 
@@ -34,8 +35,6 @@ const PDFGenerator = ({
   const taxLabel = isPercentVisible.Tax ? `${labels.taxLabel}(${formData.Tax}%)` : labels.taxLabel;
   const discountLabel = isPercentVisible.Discount ? `${labels.discountLabel}(${formData.Discount}%)` : labels.discountLabel;
   const isDisablel = !(inputBoxData.inVoiceFrom && inputBoxData.billTo);
-
-
 
   console.log(boxLabel);
 

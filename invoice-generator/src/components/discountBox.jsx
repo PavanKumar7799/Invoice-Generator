@@ -44,7 +44,7 @@ function DiscountBox({ width, height ,value, onChange, setPercentVisible, isPerc
 
   return (
     <div style={containerStyle}>
- <div style={{ position: 'absolute', left:`${!isPercentVisible ? '0px':'87px'}`, height: '100%', display: 'flex', alignItems: 'center',color: 'rgb(119, 119, 119)', backgroundColor: 'white', width: '20%', justifyContent: 'center', borderRadius: '5px' }}>{!isPercentVisible?`${symbol}`:<span style={{zIndex:10}}>%</span>}</div>      
+ <div style={{ position: 'absolute', left:`${!isPercentVisible ? '0px':'87px'}`, height: '100%', display: 'flex', alignItems: 'center',color: 'rgb(119, 119, 119)', backgroundColor: 'white', width: '20%', justifyContent: 'center', borderRadius: '5px',  fontSize: '15px' }}>{!isPercentVisible?`${symbol}`:<span style={{zIndex:10}}>%</span>}</div>      
         <input
         placeholder={value}
         required

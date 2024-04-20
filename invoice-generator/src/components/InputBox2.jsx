@@ -9,13 +9,11 @@ function InputBox2({width, height, textAlign, onChange, value, name }) {
   const inputStyle = {
     width: width,
     height: height,
-    backgroundColor: '#FFFFFF', 
     border: "1px solid rgba(196, 205, 213, .7)",
     borderRadius: '5px',
     padding: '10px',
-    fontSize: '16px',
-    fontFamily: 'Inter, sans-serif',
-    color: '#1E2022',
+    backgroundColor: "#FFFFFF",
+    color: "#1E2022",
     boxShadow: isFocused ? 'rgba(140, 152, 164, 0.25) 0px 0px 16px 0px' : 'none',
     transition: 'box-shadow 0.15s ease-in-out, border-color 0.15s ease-in-out',
     textAlign: textAlign,
@@ -25,7 +23,6 @@ function InputBox2({width, height, textAlign, onChange, value, name }) {
     justifyContent: 'center',
     resize:'none',
     marginBottom: '4px',
-
     
   };
   const handleFocus = () => {
