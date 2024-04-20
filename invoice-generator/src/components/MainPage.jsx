@@ -22,7 +22,7 @@ function MainPage() {
 
 
 
-  const [imgUrl, setImgUrl] = useState(null);
+  const [imgUrl, setImgUrl] = useState("");
 
   const handleImageChange = (imageUrl) => {
     setImgUrl(imageUrl); 
@@ -191,7 +191,12 @@ function MainPage() {
   dispatch(updateCalculations({ discount, tax, shipping,  amountPaid, subtotal }));
 
 
+  const [count, setCount] = useState('1'); 
 
+  const handleCountChange = (count) => {
+    setCount(count)
+  };
+  
   return (
     <div
       className="main-container"
@@ -231,7 +236,8 @@ function MainPage() {
                   value={labels.invoiceLabel}
 
                 />
-                <SymbolInputBox width="150px" height="38px" textAlign='right' Symbol={'#'} />
+                <SymbolInputBox width="150px" height="38px" textAlign='right' Symbol={`#`} value={count} 
+                onChange={handleCountChange}/>
               </div>
             </div>
             <div
@@ -635,6 +641,10 @@ function MainPage() {
           planeInput={planeInput}
           img = {imgUrl}
           labels={labels}
+          boxLabel={boxLabel}
+          isPercentVisible={isPercentVisible}
+          formData= {formData.fieldsData}
+          handleCountChange={handleCountChange}
           />
           <div style={{ marginTop: "30px" }}>
             <Currency/>

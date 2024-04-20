@@ -4,7 +4,7 @@ function CustomizeInputComp({ width, height, placeholder, textAlign, onChange, v
   const [isFocused, setIsFocused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   // const [value, setValue] = useState(placeholder);
-console.log(value);
+// console.log(value);
 
   const inputStyle = {
     width: width,
