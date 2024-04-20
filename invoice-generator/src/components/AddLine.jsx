@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { updateItemName, updateQuantity, updateRate, addLineItem, removeLineItem, selectSubtotal } from '../actions/lineItems';
+import { updateItemName, updateQuantity, updateRate, addLineItem, removeLineItem } from '../actions/lineItems';
 import InputBox from './InputBox';
 import InputBox2 from './InputBox2';
 import LableBox from './LabelBox';

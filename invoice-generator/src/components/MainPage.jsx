@@ -28,7 +28,12 @@ function MainPage() {
     setImgUrl(imageUrl); 
   };
 
-  const [boxLabel, setBoxLabel] = useState("");
+  const [boxLabel, setBoxLabel] = useState({
+    item: 'Item',
+    quantity: 'Quantity',
+    rate: 'Rate',
+    amount: 'Amount'
+  });
   const handleLabelBoxChange=(label)=>{
     setBoxLabel(label)
   }
