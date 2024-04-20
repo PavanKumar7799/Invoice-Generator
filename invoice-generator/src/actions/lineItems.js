@@ -22,12 +22,20 @@ const lineItemsSlice = createSlice({
       const item = state.lineItems[index];
       item.quantity = quantity;
       item.amount = (parseFloat(quantity) * parseFloat(item.rate)).toFixed(2);
+      if(isNaN(item.amount)){
+        item.amount='0.00'
+      }
     },
     updateRate(state, action) {
       const { index, rate } = action.payload;
       const item = state.lineItems[index];
       item.rate = rate;
       item.amount = (parseFloat(rate) * parseFloat(item.quantity)).toFixed(2);
+      if(isNaN(item.amount)){
+        item.amount='0.00'
+      }
+      console.log(item.amount);
+
     },
     addLineItem(state) {
       state.lineItems.push({ itemName: '', quantity: '1', rate: '0', amount: '0.00' });

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-function InvoiceName({width, height}) {
+function InvoiceName({width, height, onChange, value, placeholder}) {
   const [isFocused, setIsFocused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [value, setValue] = useState("INVOICE");
+  // const [value, setValue] = useState("INVOICE");
 
 
   const inputStyle = {
@@ -32,10 +32,6 @@ function InvoiceName({width, height}) {
     
   };
 
-  const handleChange=(e)=>{
-      setValue(e.target.value);
-  }
-
   return (
     <div onMouseEnter={()=>setIsHovered(true)} onMouseLeave={()=>setIsHovered(false)}>
       <input
@@ -43,7 +39,7 @@ function InvoiceName({width, height}) {
         required
         value={value}
         style={inputStyle}
-        onChange={handleChange}
+        onChange={onChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
       />

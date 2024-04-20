@@ -60,7 +60,26 @@ console.log(imgUrl);
   };
 
 
-  const [customeLabel, setCustomeLabel] = useState();
+  const [labels, setLabels] = useState({
+    billToLabel: 'Bill To',
+    shipToLabel: 'Ship To',
+    invoiceLabel: 'INVOICE',
+    dateLabel: 'Date',
+    paymentTermsLabel: 'Payment Terms',
+    dueDateLabel: 'Due Date',
+    poNumberLabel: 'PO Number',
+    notesLabel: 'Notes',
+    termsLabel: 'Terms',
+    subtotalLabel: 'Subtotal',
+    discountLabel: 'Discount',
+    taxLabel: 'Tax',
+    shippingLabel: 'Shipping',
+    TotalLabel: 'Total',
+    amountPaidLabel: 'Amount Paid',
+    BalanceDueLabel: 'Balance'
+  });
+
+  
   const [selectedDate, setSelectedDate] = useState({
     date: '',
     dueDate: ''
@@ -73,8 +92,8 @@ console.log(imgUrl);
 
   const [inputBoxValue, setInputBoxValue] = useState({
     inVoiceFrom: '',
-    shipTo: '',
     billTo: '',
+    shipTo: '',
     notes: '',
     terms: ''
   })
@@ -137,10 +156,13 @@ console.log(imgUrl);
     }));
   }
 
-  const handleCustomeLableChange=(event)=>{
-    setCustomeLabel(event.target.value)
-  }
-  // console.log(customeLabel);
+  const handleLabelChange = (label, value) => {
+  setLabels(prevLabels => ({
+    ...prevLabels,
+    [label]: value
+  }));
+}
+
 
   const handleDatePickerChange=(date, whichDate)=>{
     setSelectedDate(prevState=>({
@@ -159,6 +181,7 @@ console.log(imgUrl);
   }
 
   useEffect(() => {
+    // console.log(labels);
   }); 
 
 
@@ -204,7 +227,11 @@ console.log(imgUrl);
                   paddingRight: "40px",
                 }}
               >
-                <InvoiceName width="250px" height="auto" />
+                <InvoiceName width="250px" height="auto" 
+                  onChange={(event)=>handleLabelChange('invoiceLabel', event.target.value)}
+                  value={labels.invoiceLabel}
+
+                />
                 <SymbolInputBox width="150px" height="38px" textAlign='right' Symbol={'#'} />
               </div>
             </div>
@@ -252,18 +279,17 @@ console.log(imgUrl);
                     <CustomeLableBox
                       width="100%"
                       height="18px"
-                      placeholder="Ship To"
                       textAlign="left"
-                      onChange={handleCustomeLableChange}
-                      value={customeLabel}
+                      onChange={(event) => handleLabelChange('billToLabel', event.target.value)}
+  value={labels.billToLabel}
                     />
                     <InputBox
                       width="100%"
                       height="40px"
                       placeholder="Who is this invoice to? (required)"
-                      name="shipTo"
+                      name="billTo"
                       onChange={handleInputBoxChange}
-                      value={inputBoxValue.shipTo}
+                      value={inputBoxValue.billTo}
                     />
                   </div>
 
@@ -279,16 +305,17 @@ console.log(imgUrl);
                     <CustomeLableBox
                       width="100%"
                       height="18px"
-                      placeholder="Bill To"
                       textAlign="left"
+                      onChange={(event) => handleLabelChange('shipToLabel', event.target.value)}
+                      value={labels.shipToLabel}
                     />
                     <InputBox
                       width="100%"
                       height="40px"
                       placeholder="(optional)"
-                      name="billTo"
+                      name="shipTo"
                       onChange={handleInputBoxChange}
-                      value={inputBoxValue.billTo}
+                      value={inputBoxValue.shipTo}
                     />
                   </div>
                 </div>
@@ -312,28 +339,30 @@ console.log(imgUrl);
                   <CustomeLableBox
                     width="200px"
                     height="18px"
-                    placeholder="Date"
                     textAlign="right"
-                     // onChange={handleCustomeLableChange}
-                     value={customeLabel}
+                    onChange={(event) => handleLabelChange('dateLabel', event.target.value)}
+                      value={labels.dateLabel}
                   />
                   <CustomeLableBox
                     width="200px"
                     height="18px"
-                    placeholder="Payment Terms"
                     textAlign="right"
+                    onChange={(event) => handleLabelChange('paymentTermsLabel', event.target.value)}
+                      value={labels.paymentTermsLabel}
                   />
                   <CustomeLableBox
                     width="200px"
                     height="18px"
-                    placeholder="Due Date"
                     textAlign="right"
+                    onChange={(event) => handleLabelChange('dueDateLabel', event.target.value)}
+                      value={labels.dueDateLabel}
                   />
                   <CustomeLableBox
                     width="200px"
                     height="18px"
-                    placeholder="PO Number"
                     textAlign="right"
+                    onChange={(event) => handleLabelChange('poNumberLabel', event.target.value)}
+                      value={labels.poNumberLabel}
                   />
                 </div>
                 <div
@@ -381,8 +410,9 @@ console.log(imgUrl);
                 <CustomeLableBox
                   width="100%"
                   height="18px"
-                  placeholder="Notes"
                   textAlign="left"
+                  onChange={(event) => handleLabelChange('notesLabel', event.target.value)}
+                      value={labels.notesLabel}
                 />
                 <InputBox
                   width="100%"
@@ -405,8 +435,9 @@ console.log(imgUrl);
                 <CustomeLableBox
                   width="100%"
                   height="18px"
-                  placeholder="Terms"
                   textAlign="left"
+                  onChange={(event) => handleLabelChange('termsLabel', event.target.value)}
+                      value={labels.termsLabel}
                 />
                 <InputBox
                   width="100%"
@@ -432,8 +463,9 @@ console.log(imgUrl);
                 <CustomeLableBox
                   width="100%"
                   height="18px"
-                  placeholder="Subtotal"
                   textAlign="right"
+                  onChange={(event) => handleLabelChange('subtotalLabel', event.target.value)}
+                      value={labels.subtotalLabel}
                 />
                 <sapn style={{marginLeft: '80px', color: 'rgb(119, 119, 119)'}}>{subtotal}</sapn>
               </div>
@@ -451,24 +483,27 @@ console.log(imgUrl);
                       <CustomeLableBox
                         width="100%"
                         height="18px"
-                        placeholder="Discount"
                         textAlign="right"
+                        onChange={(event) => handleLabelChange('discountLabel', event.target.value)}
+                      value={labels.discountLabel}
                       />
                     )}
                     {field === "Tax" && (
                       <CustomeLableBox
                         width="100%"
                         height="18px"
-                        placeholder="Tax"
                         textAlign="right"
+                        onChange={(event) => handleLabelChange('taxLabel', event.target.value)}
+                      value={labels.taxLabel}
                       />
                     )}
                     {field === "Shipping" && (
                       <CustomeLableBox
                         width="100%"
                         height="18px"
-                        placeholder="Shipping"
                         textAlign="right"
+                        onChange={(event) => handleLabelChange('shippingLabel', event.target.value)}
+                      value={labels.shippingLabel}
                       />
                     )}
                     {field === "Shipping"? (
@@ -541,8 +576,9 @@ console.log(imgUrl);
                 <CustomeLableBox
                         width="100%"
                         height="18px"
-                        placeholder="Total"
                         textAlign="right"
+                        onChange={(event) => handleLabelChange('TotalLabel', event.target.value)}
+                      value={labels.TotalLabel}
                       />
                  <sapn style={{marginLeft: '80px', color: 'rgb(119, 119, 119)'}}>{totalAmountToDisplay}</sapn>
                 </div>
@@ -551,8 +587,9 @@ console.log(imgUrl);
                  <CustomeLableBox
                         width="100%"
                         height="18px"
-                        placeholder="Amount paid"
                         textAlign="right"
+                        onChange={(event) => handleLabelChange('amountPaidLabel', event.target.value)}
+                      value={labels.amountPaidLabel}
                       />
                       <div style={{marginLeft:  '30px'}}>
                       
@@ -569,8 +606,9 @@ console.log(imgUrl);
                  <CustomeLableBox
                         width="100%"
                         height="18px"
-                        placeholder="Balance Due"
                         textAlign="right"
+                        onChange={(event) => handleLabelChange('BalanceDueLabel', event.target.value)}
+                      value={labels.BalanceDueLabel}
                       />
                  <sapn style={{marginLeft: '80px', color: 'rgb(119, 119, 119)'}}>{balanceToDisplay}</sapn>
                  </div>
@@ -592,10 +630,10 @@ console.log(imgUrl);
             marginLeft: "30px",
           }}
         >
-          <PDFGenerator inputBoxData={inputBoxValue}
+          <PDFGenerator 
+            inputBoxData={inputBoxValue}
           selectedDate={selectedDate}
           planeInput= {planeInput}
-          check = {imgUrl}
           />
           <div style={{ marginTop: "30px" }}>
             <Currency/>

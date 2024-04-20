@@ -8,6 +8,7 @@ import { updateItemName, updateQuantity, updateRate, addLineItem, removeLineItem
 import InputBox from './InputBox';
 import InputBox2 from './InputBox2';
 import LableBox from './LabelBox';
+import SymbolInputBox from './SymbolInputBox'
 
 function LineItem({ }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -86,7 +87,7 @@ function LineItem({ }) {
                   dispatch(updateQuantity({ index, quantity: value }))
                 }}
               />
-
+            {/* <SymbolInputBox width="80px" height="25px" textAlign='right' Symbol={'#'} /> */}
               <InputBox2 type={'number'} name="rate" placeholder={'Rate'} width={"80px"} height={"25px"} value={item?.rate}
 
                 onChange={(e) => {

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-function CustomizeInputComp({ width, height, placeholder, textAlign, onChange }) {
+function CustomizeInputComp({ width, height, placeholder, textAlign, onChange, value }) {
   const [isFocused, setIsFocused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [value, setValue] = useState(placeholder);
-
+  // const [value, setValue] = useState(placeholder);
+console.log(value);
 
   const inputStyle = {
     width: width,
@@ -33,21 +33,21 @@ function CustomizeInputComp({ width, height, placeholder, textAlign, onChange })
     setIsFocused(false);
   };
 
-  const handleChange = (e) => {
-    setValue(e.target.value);
-    if(onChange){
-      onChange(e)
-    }
-  }
+  // const handleChange = (e) => {
+  //   setValue(e.target.value);
+  //   if(onChange){
+  //     onChange(e)
+  //   }
+  // }
 
   return (
     <div onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
       <input
-        placeholder={value}
+        placeholder={placeholder}
         required
         value={value}
         style={inputStyle}
-        onChange={handleChange}
+        onChange={onChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
       />
