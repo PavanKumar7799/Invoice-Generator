@@ -11,6 +11,7 @@ import LableBox from './LabelBox';
 import SymbolInputBox from './SymbolInputBox'
 
 function LineItem({onChange, value, handleChange }) {
+  const { selectedCurrency } = useSelector((state) => state.currency);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
   const [name, setName] = useState("");
@@ -121,8 +122,9 @@ function LineItem({onChange, value, handleChange }) {
                   dispatch(updateRate({ index, rate: value }))
                 }}
                />
-              <div style={{ height: "24px", display: "flex", alignItems: "center", margin: '10px', marginLeft: '10px' }}>
-                {item.amount} { }
+              <div style={{ height: "24px", display: "flex", alignItems: "center", margin: '10px', marginLeft: '10px',color: "rgb(119, 119, 119)" }}>
+              {selectedCurrency}
+                {" "+item.amount} { }
                 <div style={{ marginLeft: '30px' }}>
                   {lineItems?.lineItems?.length > 1 && hoveredIndex === index && (
                     <FontAwesomeIcon icon={faTimes} style={{ cursor: 'pointer', color: '009e74', alignSelf: 'center' }} onClick={() => handleRemoveLineItem(index)} />
