@@ -632,8 +632,9 @@ function MainPage() {
           <PDFGenerator 
             inputBoxData={inputBoxValue}
           selectedDate={selectedDate}
-          planeInput= {planeInput}
-          check = {imgUrl}
+          planeInput={planeInput}
+          img = {imgUrl}
+          labels={labels}
           />
           <div style={{ marginTop: "30px" }}>
             <Currency/>

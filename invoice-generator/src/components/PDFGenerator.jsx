@@ -5,68 +5,63 @@ import { useSelector } from 'react-redux';
 import moment from 'moment';
 import { selectSubtotal } from '../actions/lineItems';
 
-
-// const imageUrl = 'https://i.imgur.com/abcd123.jpg';
-
 const PDFGenerator = ({
   inputBoxData, 
   selectedDate, 
   planeInput,
-  check
+  img,
+  labels
 }) => {
 
-  console.log(check);
-    const lineItems = useSelector((state) => state.lineItems);
-    console.log("lineItems:-----", lineItems.lineItems);
-    
-    const lineItemsArray = Object.values(lineItems.lineItems);
-console.log("lineItemsArray:", lineItemsArray);
-
-
-const BalanceDue = useSelector((state) => state.calculation.balanceDue);
-const discount = useSelector((state) => state.calculation.discount);
-const tax = useSelector((state) => state.calculation.tax);
-const shipping = useSelector((state) => state.calculation.shipping);
-const total = useSelector((state) => state.calculation.total);
-const {Symbol} = useSelector((state) => state.currency);
-
-const subTotal =  useSelector(selectSubtotal);
-  { console.log(Symbol)}
-  { console.log(inputBoxData?.terms)}
-
-  
-  console.log("date");
   
   
+  const lineItems = useSelector((state) => state?.lineItems);
+  const lineItemsArray = Object.values(lineItems?.lineItems);
+  const BalanceDue = useSelector((state) => state?.calculation?.balanceDue);
+  const discount = useSelector((state) => state?.calculation?.discount);
+  const tax = useSelector((state) => state?.calculation?.tax);
+  const shipping = useSelector((state) => state?.calculation?.shipping);
+  const total = useSelector((state) => state?.calculation?.total);
+  const amtPaid = useSelector((state) => state?.calculation?.amountPaid);
+  const {Symbol} = useSelector((state) => state.currency);
+  const subTotal =  useSelector(selectSubtotal);
   const date = moment(selectedDate?.date).format('MMM DD, YYYY');
   const dueDate = moment(selectedDate?.dueDate).format('MMM DD, YYYY');
-
-
-
+  
+  { console.log(labels)}
+  { console.log(amtPaid)}
+  { console.log(inputBoxData?.billTo)}
+  
+  
+  
+  
+  
+  
+  
   const generatePDF = () => {
 
     const doc = new jsPDF();
 
-    doc.addImage(check, 'JPEG', 10, 10, 50, 50);
+    doc.addImage(img, 'JPEG', 10, 10, 50, 50);
 
     doc.setFontSize(12);
-    doc.text(`${inputBoxData?.inputBoxData?.inVoiceFrom}`, 10, 70);
+    doc.text(`${inputBoxData?.inVoiceFrom}`, 10, 70);
 
 
     doc.setFontSize(14);
     doc.setFont('helvetica', 'bold');
-    doc.text(`Ship To`, 10, 85);
-    doc.text(`Bill To`, 60, 85);
+    doc.text(`${labels?.billToLabel}`, 60, 85);
+    doc.text(`${labels?.shipToLabel}`, 10, 85);
 
 
     doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
-    doc.text(`${inputBoxData?.inputBoxData?.billTo}`, 10, 95);
-    doc.text(`${inputBoxData?.inputBoxData?.shipTo}`, 60, 95);
+    doc.text(`${inputBoxData?.billTo}`, 10, 95);
+    doc.text(`${inputBoxData?.shipTo}`, 60, 95);
 
     doc.setFontSize(24);
     doc.setFont('helvetica', 'bold');
-    doc.text("INVOICE", 140, 20);
+    doc.text(`${labels?.invoiceLabel}`, 140, 20);
 
     doc.setFontSize(13);
     doc.setFont('helvetica', 'normal');
@@ -78,22 +73,22 @@ const subTotal =  useSelector(selectSubtotal);
 
 
     doc.setFont('helvetica', 'bold');
-    doc.text(`Date: `, 140, 40);
+    doc.text(`${labels?.dateLabel}: `, 140, 40);
     doc.setFont('helvetica', 'normal');
     doc.text(`${date}`, 155, 40);
 
     doc.setFont('helvetica', 'bold');
-    doc.text(`Due Date: `, 140, 50);
+    doc.text(`${labels?.dueDateLabel}: `, 140, 50);
     doc.setFont('helvetica', 'normal');
     doc.text(`${dueDate}`, 165, 50);
 
     doc.setFont('helvetica', 'bold');
-    doc.text("Payment Terms: ", 140, 60);
+    doc.text(`${labels?.paymentTermsLabel}: `, 140, 60);
     doc.setFont('helvetica', 'normal');
     doc.text(`${planeInput?.paymentTerms}`, 177, 60);
 
     doc.setFont('helvetica', 'bold');
-    doc.text("PO Number:", 140, 70);
+    doc.text(`${labels?.poNumberLabel}: `, 140, 70);
     doc.setFont('helvetica', 'normal');
     doc.text(`${planeInput?.poNumber}`, 167, 70);
 
@@ -103,7 +98,7 @@ const subTotal =  useSelector(selectSubtotal);
     doc.rect(130, 75, 70, 10, 'F');
     doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
-    doc.text(`Balance Due: ${Symbol} ${BalanceDue}`, 140, 80);
+    doc.text(`${labels?.BalanceDueLabel}: ${Symbol} ${BalanceDue}`, 140, 80);
 
     doc.setFillColor(64, 64, 64); // Dark grey color
     doc.rect(10, 110, 190, 10, 'F'); // Drawing a filled rectangle
@@ -164,7 +159,7 @@ const subTotal =  useSelector(selectSubtotal);
 
 
     doc.setFont('helvetica', 'bold'); 
-    doc.text("Subtotal:", 140, 170);
+    doc.text(`${labels?.subtotalLabel}`, 140, 170);
     doc.setFont('helvetica', 'normal'); 
     doc.text(`${Symbol}${subTotal}`, 175, 170); // symbol pending
 
@@ -179,19 +174,24 @@ const subTotal =  useSelector(selectSubtotal);
     doc.text(`${Symbol}${tax}`, 175, 190);
     
     doc.setFont('helvetica', 'bold'); 
-    doc.text("Shipping:", 140, 200);
+    doc.text(`${labels?.shippingLabel}`, 140, 200);
     doc.setFont('helvetica', 'normal'); 
     doc.text(`${Symbol}${shipping}`, 175, 200);
 
     doc.setFont('helvetica', 'bold'); 
-    doc.text("Total:", 140, 210);
+    doc.text(`${labels?.TotalLabel}`, 140, 210);
     doc.setFont('helvetica', 'normal'); 
     doc.text(`${Symbol}${total}`, 175, 210);
+
+    doc.setFont('helvetica', 'bold'); 
+    doc.text(`${labels?.amountPaidLabel}`, 140, 210);
+    doc.setFont('helvetica', 'normal'); 
+    doc.text(`${Symbol}${amtPaid}`, 175, 210);
 
 
     doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
-    doc.text("Notes:", 10, 220);
+    doc.text(`${labels?.notesLabel}`, 10, 220);
 
     doc.setFontSize(12);
     doc.setFont('helvetica', 'nornal');
@@ -199,7 +199,7 @@ const subTotal =  useSelector(selectSubtotal);
 
     doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
-    doc.text("Terms:", 10, 240);
+    doc.text(`${labels?.termsLabel}`, 10, 240);
 
     doc.setFontSize(12);
     doc.setFont('helvetica', 'nornal');
