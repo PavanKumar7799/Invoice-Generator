@@ -15,20 +15,25 @@ import DiscountBox from "./discountBox"
 import { updateCalculations } from '../Redux/caclulation'; 
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import lineItems, { selectSubtotal } from '../actions/lineItems';
+import { selectSubtotal } from '../actions/lineItems';
 
 
 function MainPage() {
 
 
 
+  const [imgUrl, setImgUrl] = useState(null);
 
-
-
-
-  const handleImageChange = (imageData) => {
-    console.log("Image data:", imageData);
+  const handleImageChange = (imageUrl) => {
+    setImgUrl(imageUrl); // Set the image URL in state
+    // Pass the imageUrl to another component or use it as needed
+    console.log("Image URL:", imageUrl);
   };
+console.log(imgUrl);
+
+  // const handleImageChange = (imageData) => {
+  //   console.log("Image data:", imageData);
+  // };
 
   const subtotal = useSelector(selectSubtotal);
 
@@ -189,7 +194,7 @@ function MainPage() {
         >
           <div>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <LogoBox onImageChange={handleImageChange} />
+              <LogoBox  onImageChange={handleImageChange} />
               <div
                 style={{
                   display: "flex",
@@ -590,6 +595,7 @@ function MainPage() {
           <PDFGenerator inputBoxData={inputBoxValue}
           selectedDate={selectedDate}
           planeInput= {planeInput}
+          check = {imgUrl}
           />
           <div style={{ marginTop: "30px" }}>
             <Currency/>

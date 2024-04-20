@@ -9,7 +9,7 @@ function InputBox2({width, height, textAlign, onChange, value, name }) {
   const inputStyle = {
     width: width,
     height: height,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#FFFFFF', 
     border: "1px solid rgba(196, 205, 213, .7)",
     borderRadius: '5px',
     padding: '10px',
