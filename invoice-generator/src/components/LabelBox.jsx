@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-function LableBox({ width, height, placeholder     }) {
+function LableBox({ width, height, placeholder, onChange, value}) {
     const [isFocused, setIsFocused] = useState(false);
     // const [isHovered, setIsHovered] = useState(false);
-    const [value, setValue] = useState(placeholder);
+    // const [value, setValue] = useState(placeholder);
 
 
     const inputStyle = {
@@ -34,9 +34,9 @@ function LableBox({ width, height, placeholder     }) {
         setIsFocused(false);
     };
 
-    const handleChange = (e) => {
-        setValue(e.target.value);
-    }
+    // const handleChange = (e) => {
+    //     setValue(e.target.value);
+    // }
 
     return (<div> 
          <div >
@@ -45,7 +45,7 @@ function LableBox({ width, height, placeholder     }) {
             required
             value={value}
             style={inputStyle}
-            onChange={handleChange}
+            onChange={onChange}
             onFocus={handleFocus}
             onBlur={handleBlur}
         />

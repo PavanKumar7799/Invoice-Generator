@@ -10,7 +10,7 @@ import InputBox2 from './InputBox2';
 import LableBox from './LabelBox';
 import SymbolInputBox from './SymbolInputBox'
 
-function LineItem({ }) {
+function LineItem({onChange, value, handleChange }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
   const [name, setName] = useState("");
@@ -20,10 +20,14 @@ function LineItem({ }) {
 
   const dispatch = useDispatch();
   const lineItems = useSelector((state) => state.lineItems);
-    ////new check 
+  
+  const [labelBoxLabel, setLabelBoxLabel] = useState({
+    item: 'Item',
+    quantity: 'Quantity',
+    rate: 'Rate',
+    amount: 'Amount'
+  }) 
 
-  // const subtotal = useSelector(selectSubtotal);
-  // console.log(subtotal);
   const handleAddLineItem = () => {
     dispatch(addLineItem());
   };
@@ -50,17 +54,35 @@ function LineItem({ }) {
   };
 
 
-  // console.log("lineItems", lineItems);
-
+  const handleLabelBoxChange=(label, value)=>{
+    setLabelBoxLabel(prevLabels => ({
+        ...prevLabels,
+        [label]: value
+      }));
+      handleChange(labelBoxLabel)
+      console.log(labelBoxLabel);
+  }
   return (
     <div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginRight: '20px' }}>
         {/* Header row */}
         <div className='InputLables' style={{ backgroundColor: '#132144', color: 'white', display: 'flex', padding: '8px', height: '20px', borderRadius: '5px', width: '100%', paddingBottom: '14px', marginRight: '20px',  marginBottom:'5px'}}>
-          <LableBox placeholder={'Item'} width="678px" height="10px" />
-          <LableBox placeholder={'Quantity'} width="100%" height="10px" />
-          <LableBox placeholder={'Rate'} width="100%" height="10px" />
-          <LableBox placeholder={'Amount'} width="100%" height="10px" />
+          <LableBox placeholder={'Item'} 
+          onChange={(event)=>handleLabelBoxChange('item', event.target.value)}
+          value={labelBoxLabel.item}
+           width="678px" height="10px" />
+          <LableBox placeholder={'Quantity'} 
+          onChange={(event)=>handleLabelBoxChange('quantity',event.target.value)}
+          value={labelBoxLabel.quantity}
+          width="100%" height="10px" />
+          <LableBox placeholder={'Rate'} 
+          onChange={(event)=>handleLabelBoxChange('rate',event.target.value)}
+          value={labelBoxLabel.rate}
+          width="100%" height="10px" />
+          <LableBox placeholder={'Amount'} 
+          onChange={(event)=>handleLabelBoxChange('amount',event.target.value)}
+          value={labelBoxLabel.amount}
+          width="100%" height="10px" />
         </div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginRight: '10px', width:'100%'}} >  
@@ -87,7 +109,6 @@ function LineItem({ }) {
                   dispatch(updateQuantity({ index, quantity: value }))
                 }}
               />
-            {/* <SymbolInputBox width="80px" height="25px" textAlign='right' Symbol={'#'} /> */}
               <InputBox2 type={'number'} name="rate" placeholder={'Rate'} width={"80px"} height={"25px"} value={item?.rate}
 
                 onChange={(e) => {

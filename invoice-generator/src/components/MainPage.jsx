@@ -25,15 +25,13 @@ function MainPage() {
   const [imgUrl, setImgUrl] = useState(null);
 
   const handleImageChange = (imageUrl) => {
-    setImgUrl(imageUrl); // Set the image URL in state
-    // Pass the imageUrl to another component or use it as needed
-    console.log("Image URL:", imageUrl);
+    setImgUrl(imageUrl); 
   };
-console.log(imgUrl);
 
-  // const handleImageChange = (imageData) => {
-  //   console.log("Image data:", imageData);
-  // };
+  const [boxLabel, setBoxLabel] = useState("");
+  const handleLabelBoxChange=(label)=>{
+    setBoxLabel(label)
+  }
 
   const subtotal = useSelector(selectSubtotal);
 
@@ -181,7 +179,8 @@ console.log(imgUrl);
   }
 
   useEffect(() => {
-    // console.log(labels);
+    // console.log(inputBoxValue.billTo,"   ",labels.billToLabel);
+    // console.log(inputBoxValue.shipTo," ",labels.shipToLabel);
   }); 
 
 
@@ -381,7 +380,7 @@ console.log(imgUrl);
             </div>
           </div>
           <div style={{marginTop: '40px'}}>
-            <LineItem />
+            <LineItem  handleChange={handleLabelBoxChange}/>
           </div>
           <div
             style={{
@@ -634,6 +633,7 @@ console.log(imgUrl);
             inputBoxData={inputBoxValue}
           selectedDate={selectedDate}
           planeInput= {planeInput}
+          check = {imgUrl}
           />
           <div style={{ marginTop: "30px" }}>
             <Currency/>
