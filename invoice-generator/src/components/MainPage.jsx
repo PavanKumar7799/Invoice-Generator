@@ -274,7 +274,6 @@ function MainPage() {
                   style={{
                     display: "flex",
                     flexDirection: "row",
-                    gap: "10px",
                     width: "125%",
                   }}
                 >
@@ -283,8 +282,7 @@ function MainPage() {
                       display: "flex",
                       flexDirection: "column",
                       gap: "5px",
-                      marginRight: "15px",
-                      width: "100%",
+                      width: "40%",
                     }}
                   >
                     <CustomeLableBox
@@ -312,7 +310,7 @@ function MainPage() {
                       flexDirection: "column",
                       gap: "5px",
                       marginLeft: "15px",
-                      width: "100%",
+                      width: "40%",
                     }}
                   >
                     <CustomeLableBox
@@ -342,7 +340,6 @@ function MainPage() {
                   marginTop: "20px",
                   gap: "5px",
                   marginRight: "40px",
-                  width: '35%'
                 }}
               >
                 <div

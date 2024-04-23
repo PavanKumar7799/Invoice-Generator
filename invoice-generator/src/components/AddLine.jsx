@@ -70,22 +70,31 @@ function LineItem({onChange, value, handleChange }) {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginRight: '20px' }}>
         {/* Header row */}
         <div className='InputLables' style={{ backgroundColor: '#132144', color: 'white', display: 'flex', padding: '8px', height: '20px', borderRadius: '5px', width: '100%', paddingBottom: '14px', marginRight: '20px',  marginBottom:'5px'}}>
-          <LableBox placeholder={'Item'} 
+        <div style={{width: '80%'}}>
+        <LableBox placeholder={'Item'} 
           onChange={(event)=>handleLabelBoxChange('item', event.target.value)}
           value={labelBoxLabel.item}
-           width="678px" height="10px" />
-          <LableBox placeholder={'Quantity'} 
+           width="80%" height="10px" />
+        </div>
+        <div>
+        <LableBox placeholder={'Quantity'} 
           onChange={(event)=>handleLabelBoxChange('quantity',event.target.value)}
           value={labelBoxLabel.quantity}
-          width="100%" height="10px" />
+          width="50%" height="10px" />
+        </div>
+          <div>
           <LableBox placeholder={'Rate'} 
           onChange={(event)=>handleLabelBoxChange('rate',event.target.value)}
           value={labelBoxLabel.rate}
-          width="100%" height="10px" />
-          <LableBox placeholder={'Amount'} 
+          width="50%" height="10px" />
+          </div>
+         <div>
+         <LableBox placeholder={'Amount'} 
           onChange={(event)=>handleLabelBoxChange('amount',event.target.value)}
           value={labelBoxLabel.amount}
-          width="100%" height="10px" />
+          width="50%" height="10px" />
+         </div>
+          
         </div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginRight: '10px', width:'100%'}} >  
@@ -95,16 +104,18 @@ function LineItem({onChange, value, handleChange }) {
             <div key={index} className='InputLine' style={{ display: 'flex', gap:'5px',  height: '37.49px', width: '100%',  marginBottom:'8px' }}
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={handleMouseLeave}>
-
-              <InputBox placeholder={'Add your Item or description of product'} width={'675px'} height={"24px"} value={item?.itemName}
+              <div style={{width: '60%'}}>
+              <InputBox placeholder={'Add your Item or description of product'} width={'97%'} height={"24px"} value={item?.itemName}
                 onChange={(e) => {
                   let value = e.target.value;
                   setName(value)
                   dispatch(updateItemName({ index, name: value }))
 
                 }} />
-
-              <InputBox2 type={'number'} name="quantity" placeholder={'Quantity'} width={"65px"} height={"24px"} value={item?.quantity}
+              </div>
+              
+                <div style={{width:"8%"}}>
+                <InputBox2 type={'number'} name="quantity" placeholder={'Quantity'} width={"65px"} height={"24px"} value={item?.quantity}
 
                 onChange={(e) => {
                   let value = e.target.value;
@@ -112,7 +123,11 @@ function LineItem({onChange, value, handleChange }) {
                   dispatch(updateQuantity({ index, quantity: value }))
                 }}
               />
-              <SymbolInputBox width="8%"  inputWidth= '56%'
+                </div>
+                <div>
+                </div>
+              <div style={{width: '8%'}}>
+              <SymbolInputBox width="100%"  inputWidth= '61%'
               placeholder={'Rate'} height="44px" textAlign='left' Symbol={Symbol}
               type='number'
               value={item?.rate}
@@ -122,16 +137,18 @@ function LineItem({onChange, value, handleChange }) {
                   dispatch(updateRate({ index, rate: value }))
                 }}
                />
-              <div style={{ height: "24px", alignItems: "center", margin: '10px', marginLeft: '10px',color: "rgb(119, 119, 119)" }}>
+              </div>
+              
+              <div style={{ height: "24px", alignItems: "center", padding: '10px', marginLeft:'60px',color: "rgb(119, 119, 119)" }}>
               {selectedCurrency}
                 {" "+item.amount} { }
-                <div style={{ marginLeft: '30px' }}>
+                
+              </div>
+              <div style={{ marginLeft: '30px' , alignContent: 'center'}}>
                   {lineItems?.lineItems?.length > 1 && hoveredIndex === index && (
-                    <FontAwesomeIcon icon={faTimes} style={{ cursor: 'pointer', color: '009e74', alignSelf: 'center' }} onClick={() => handleRemoveLineItem(index)} />
+                    <FontAwesomeIcon icon={faTimes} style={{ cursor: 'pointer', color: '009e74', alignitem: 'center' }} onClick={() => handleRemoveLineItem(index)} />
                   )}
                 </div>
-              </div>
-
             </div>
           ))
           :
