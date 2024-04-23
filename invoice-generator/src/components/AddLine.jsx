@@ -112,7 +112,7 @@ function LineItem({onChange, value, handleChange }) {
                   dispatch(updateQuantity({ index, quantity: value }))
                 }}
               />
-              <SymbolInputBox width="13%" 
+              <SymbolInputBox width="8%"  inputWidth= '56%'
               placeholder={'Rate'} height="44px" textAlign='left' Symbol={Symbol}
               type='number'
               value={item?.rate}
@@ -122,7 +122,7 @@ function LineItem({onChange, value, handleChange }) {
                   dispatch(updateRate({ index, rate: value }))
                 }}
                />
-              <div style={{ height: "24px", display: "flex", alignItems: "center", margin: '10px', marginLeft: '10px',color: "rgb(119, 119, 119)" }}>
+              <div style={{ height: "24px", alignItems: "center", margin: '10px', marginLeft: '10px',color: "rgb(119, 119, 119)" }}>
               {selectedCurrency}
                 {" "+item.amount} { }
                 <div style={{ marginLeft: '30px' }}>

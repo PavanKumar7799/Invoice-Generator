@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHashtag } from '@fortawesome/free-solid-svg-icons';
 
 
-function SymbolInputBox({width, height, textAlign, Symbol, onChange, value }) {
+function SymbolInputBox({width, height, textAlign, Symbol, onChange, value, inputWidth='76%' }) {
   const [isFocused, setIsFocused] = useState(false);
 
   const containerStyle = {
@@ -19,7 +19,7 @@ function SymbolInputBox({width, height, textAlign, Symbol, onChange, value }) {
   const inputStyle = {
     
     position: 'absolute',
-    width: '76%',
+    width:inputWidth,
     backgroundColor: "#FFFFFF",
     border:'none',
     color: "#1E2022",

@@ -262,7 +262,7 @@ function MainPage() {
                 }}
               >
                 <InputBox
-                  width="400px"
+                  width="370px"
                   height="50px"
                   placeholder="Who is this invoice from? (required)"
                   name="inVoiceFrom"
@@ -288,7 +288,7 @@ function MainPage() {
                     }}
                   >
                     <CustomeLableBox
-                      width="100%"
+                      width="90%"
                       height="18px"
                       textAlign="left"
                       onChange={(event) =>
@@ -297,7 +297,7 @@ function MainPage() {
                       value={labels.billToLabel}
                     />
                     <InputBox
-                      width="100%"
+                      width="90%"
                       height="40px"
                       placeholder="Who is this invoice to? (required)"
                       name="billTo"
@@ -316,7 +316,7 @@ function MainPage() {
                     }}
                   >
                     <CustomeLableBox
-                      width="100%"
+                      width="90%"
                       height="18px"
                       textAlign="left"
                       onChange={(event) =>
@@ -325,7 +325,7 @@ function MainPage() {
                       value={labels.shipToLabel}
                     />
                     <InputBox
-                      width="100%"
+                      width="90%"
                       height="40px"
                       placeholder="(optional)"
                       name="shipTo"
@@ -342,6 +342,7 @@ function MainPage() {
                   marginTop: "20px",
                   gap: "5px",
                   marginRight: "40px",
+                  width: '35%'
                 }}
               >
                 <div
@@ -455,7 +456,7 @@ function MainPage() {
                 }}
               >
                 <CustomeLableBox
-                  width="100%"
+                  width="90%"
                   height="18px"
                   textAlign="left"
                   onChange={(event) =>
@@ -464,7 +465,7 @@ function MainPage() {
                   value={labels.notesLabel}
                 />
                 <InputBox
-                  width="100%"
+                  width="90%"
                   height="40px"
                   placeholder="Notes - any relevant information not already covered"
                   name="notes"
@@ -482,7 +483,7 @@ function MainPage() {
                 }}
               >
                 <CustomeLableBox
-                  width="100%"
+                  width="90%"
                   height="18px"
                   textAlign="left"
                   onChange={(event) =>
@@ -491,7 +492,7 @@ function MainPage() {
                   value={labels.termsLabel}
                 />
                 <InputBox
-                  width="100%"
+                  width="90%"
                   height="40px"
                   placeholder="Terms and conditions - late fees, payment methods, delivery schedule"
                   name="terms"
@@ -514,6 +515,7 @@ function MainPage() {
                   flexDirection: "row",
                   gap: "90px",
                   marginBottom: "10px",
+                  justifyContent: 'space-between'
                 }}
               >
                 <CustomeLableBox
@@ -526,7 +528,7 @@ function MainPage() {
                   value={labels.subtotalLabel}
                 />
                 <sapn
-                  style={{ marginLeft: "58px", color: "rgb(119, 119, 119)" }}
+                  style={{ color: "rgb(119, 119, 119)", alignContent: 'center' }}
                 >{`${selectedCurrency} ${subtotal}`}</sapn>
               </div>
               <div style={{ display: "flex", flexDirection: "column" }}>
